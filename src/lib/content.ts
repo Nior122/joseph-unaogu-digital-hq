@@ -7,12 +7,10 @@ export const site = {
   brand: "BUILD. EXPLORE. CREATE.",
   resumeUrl: "#",
   socials: [
-    { label: "GitHub", href: "https://github.com/", handle: "@josephunaogu" },
+    { label: "WhatsApp", href: "https://wa.me/2347046118938", handle: "+234 704 611 8938" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/joseph-unaogu-72b2ba245/", handle: "in/joseph-unaogu" },
     { label: "YouTube", href: "https://youtube.com/", handle: "Coming soon" },
     { label: "X / Twitter", href: "https://x.com/Bigcherem", handle: "@Bigcherem" },
-    { label: "Fiverr", href: "https://fiverr.com/", handle: "Coming soon" },
-    { label: "Contra", href: "https://contra.com/", handle: "Coming soon" },
   ],
 };
 

@@ -21,6 +21,7 @@ const config: Config = {
           blue: "#4d8bff",
           magenta: "#ff4dcb",
           amber: "#ffb13d",
+          green: "#46e6a0",
         },
         signal: { green: "#46e6a0", yellow: "#ffd23d", blue: "#4d8bff", gray: "#69728a", red: "#ff5d6c" },
       },
