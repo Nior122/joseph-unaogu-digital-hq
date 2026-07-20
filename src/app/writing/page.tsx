@@ -142,7 +142,7 @@ export default function WritingPage() {
         <div className="container-px relative z-10">
           <Reveal>
             <span className="eyebrow mb-6 block">Writing & Editorial</span>
-            <h1 className="font-display text-5xl font-semibold tracking-tighter2 text-paper sm:text-7xl md:text-8xl text-balance">
+            <h1 className="font-display text-4xl font-semibold tracking-tighter2 text-paper text-balance sm:text-6xl md:text-8xl">
               STORIES.<br />IDEAS.<br />BOOKS.
             </h1>
           </Reveal>

@@ -16,6 +16,10 @@ export function Navbar() {
   const pathname = usePathname();
   useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 24); onScroll(); window.addEventListener("scroll", onScroll, { passive: true }); return () => window.removeEventListener("scroll", onScroll); }, []);
   useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
   return (
     <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent")}>
       <nav className="container-px flex h-16 items-center justify-between">
@@ -29,7 +33,7 @@ export function Navbar() {
         </div>
         <button className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-paper lg:hidden" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">{open ? <X size={18} /> : <Menu size={18} />}</button>
       </nav>
-      {open && (<div className="border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden"><div className="container-px grid gap-1 py-4">{links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-lg px-4 py-3 text-sm transition-colors", active ? "bg-white/5 text-neon-cyan" : "text-paper-muted hover:bg-white/5 hover:text-paper")}>{l.label}</Link>); })}<Link href="/contact" className="mt-2 rounded-lg bg-neon-cyan px-4 py-3 text-center text-sm font-medium text-ink-950">Let&apos;s talk</Link><p className="px-4 pt-3 text-xs text-paper-dim">{site.email}</p></div></div>)}
+      {open && (<div className="border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden"><div className="container-px grid gap-1 py-4">{links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-lg px-4 py-3 text-sm transition-colors", active ? "bg-white/5 text-neon-cyan" : "text-paper-muted hover:bg-white/5 hover:text-paper")}>{l.label}</Link>); })}<Link href="/contact" className="mt-2 rounded-lg bg-neon-cyan px-4 py-3 text-center text-sm font-medium text-ink-950">Let&apos;s talk</Link><p className="break-all px-4 pt-3 text-xs text-paper-dim">{site.email}</p></div></div>)}
     </header>
   );
 }

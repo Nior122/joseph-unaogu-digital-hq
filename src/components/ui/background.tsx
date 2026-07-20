@@ -15,7 +15,7 @@ export function DigitalBackdrop() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-20">
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
       <div className="absolute inset-0 bg-ink-950" />
       <div className="absolute inset-0 bg-grid opacity-60" />
       <div ref={ref} className="absolute inset-0" style={{ background: "radial-gradient(600px circle at var(--mx,50%) var(--my,30%), rgba(61,240,255,0.10), transparent 60%)" }} />

@@ -17,7 +17,7 @@ export function HeroPanel() {
         <span className="h-3 w-3 rounded-full bg-signal-red/70" /><span className="h-3 w-3 rounded-full bg-signal-yellow/70" /><span className="h-3 w-3 rounded-full bg-signal-green/70" />
         <span className="ml-2 inline-flex items-center gap-1.5 text-xs text-paper-dim"><Terminal size={13} /> joseph@digital-hq — live</span>
       </div>
-      <div className="grid grid-cols-2 gap-px bg-white/5">
+      <div className="grid grid-cols-1 gap-px bg-white/5 sm:grid-cols-2">
         <div className="bg-ink-900/60 p-4"><Cpu size={16} className="text-neon-cyan" /><p className="mt-2 text-xs text-paper-dim">SYSTEM</p><p className="text-sm text-paper">digital builder</p></div>
         <div className="bg-ink-900/60 p-4"><Layers size={16} className="text-neon-violet" /><p className="mt-2 text-xs text-paper-dim">STACK</p><p className="text-sm text-paper">Next.js · AI · Auto</p></div>
       </div>

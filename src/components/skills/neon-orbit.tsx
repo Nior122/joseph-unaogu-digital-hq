@@ -47,7 +47,7 @@ export function NeonOrbit() {
   const [filter, setFilter] = useState<SkillCategory | "all">("all");
   const [active, setActive] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [contW, setContW] = useState(640);
+  const [contW, setContW] = useState(typeof window !== "undefined" ? Math.min(640, window.innerWidth) : 360);
 
   // Track actual container width so node size, JOSEPH core, and popup scale responsively.
   useEffect(() => {

@@ -23,7 +23,7 @@ export function HeroSection() {
       <div className="container-px grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <span className="eyebrow mb-6 animate-fade-up">Personal Digital HQ</span>
-          <h1 className="font-display text-5xl font-semibold leading-[1.02] tracking-tighter2 text-paper sm:text-7xl lg:text-8xl">
+           <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tighter2 text-paper text-balance sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             <span className="animate-fade-up block" style={{ animationDelay: "0.05s" }}>I BUILD.</span>
             <span className="animate-fade-up block" style={{ animationDelay: "0.12s" }}>I EXPLORE.</span>
             <span className="animate-fade-up block text-gradient" style={{ animationDelay: "0.19s" }}>I CREATE.</span>
