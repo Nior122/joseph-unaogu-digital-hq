@@ -1,0 +1,11 @@
+import { PageHeader } from "@/components/ui/page-header";
+import { SectionHeader } from "@/components/ui/section";
+import { Reveal } from "@/components/ui/reveal";
+import { Button } from "@/components/ui/button";
+import { Check, ArrowUpRight } from "lucide-react";
+import { services } from "@/lib/content";
+export const metadata = { title: "Services", description: "Joseph Unaogu offers eBook writing & creation, copywriting, AI & automation solutions, and website development — with honest positioning of each service area." };
+export default function ServicesPage() {
+  return (<><PageHeader eyebrow="Services" title={<>How we could <span className="text-gradient">work together.</span></>} description="My strongest, most confident services come first. Technical areas like AI and automation are offered honestly as growing, practical capabilities — not oversold expertise." />
+      <section className="relative py-8"><div className="container-px space-y-6">{services.map((s, i) => (<Reveal key={s.id} delay={i * 0.05}><div id={s.id} className="surface scroll-mt-24 grid gap-6 p-7 md:grid-cols-[1.2fr_0.8fr] md:p-9" style={{ borderColor: `${s.accent}33` }}><div><div className="flex items-center gap-3"><span className="font-mono text-xs text-paper-dim">{String(i + 1).padStart(2, "0")}</span><h2 className="font-display text-2xl font-semibold text-paper">{s.title}</h2></div><p className="mt-4 max-w-xl text-base leading-relaxed text-paper-muted">{s.summary}</p><ul className="mt-6 grid gap-2.5 sm:grid-cols-2">{s.highlights.map((h) => (<li key={h} className="flex items-start gap-2.5 text-sm text-paper-muted"><Check size={16} className="mt-0.5 shrink-0" style={{ color: s.accent }} />{h}</li>))}</ul></div><div className="flex flex-col justify-center gap-3 rounded-xl border border-white/10 bg-ink-900/50 p-6"><p className="text-sm text-paper-muted">{s.cta}</p><Button href="/contact">Start a project <ArrowUpRight size={15} /></Button><Button href="/writing" variant="ghost">See writing samples</Button></div></div></Reveal>))}</div></section></>);
+}
