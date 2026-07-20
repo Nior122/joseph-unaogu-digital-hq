@@ -36,6 +36,7 @@ export const currentlyExploring: { label: string; status: ExploreStatus }[] = [
   { label: "Automation Systems", status: "experimenting" },
   { label: "Next.js", status: "building" },
   { label: "AI Content Workflows", status: "exploring" },
+  { label: "YouTube & Content", status: "exploring" },
   { label: "eBook Publishing", status: "building" },
   { label: "Copywriting", status: "learning" },
   { label: "Full-stack Web Dev", status: "building" },
@@ -121,7 +122,7 @@ export const skillCategories: { id: SkillCategory | "all"; label: string }[] = [
   { id: "ai", label: "AI" },
   { id: "automation", label: "AUTOMATION" },
   { id: "writing", label: "WRITING" },
-  { id: "creative", label: "CREATIVE" },
+  { id: "creative", label: "CONTENT & MEDIA" },
 ];
 
 export type ProjectAvailability =
@@ -246,20 +247,234 @@ export function projectMatchesFilter(p: Project, filter: string): boolean {
   return c.includes(filter) || (filter === "ai" && c === "ai");
 }
 
-export type Service = { id: string; title: string; accent: string; summary: string; highlights: string[]; cta: string };
+export type Service = {
+  id: string; title: string; accent: string; summary: string; highlights: string[];
+  cta: string;
+  ctaHref: string;
+  ctaLabel: string;
+};
+
+// Reusable service → portfolio routing. Every CTA points at the correct proof-of-work section.
 export const services: Service[] = [
-  { id: "ebooks", title: "eBook Writing & Creation", accent: "#ff4dcb", summary: "Turn ideas into structured, engaging, professionally written eBooks — ready for publishing.", highlights: ["Complete eBook writing", "Structure & chapter development", "Research-based nonfiction", "Editing & KDP-ready formatting"], cta: "Start an eBook project" },
-  { id: "copywriting", title: "Copywriting", accent: "#ff4dcb", summary: "Compelling copy for websites, landing pages, products, and campaigns that actually communicate.", highlights: ["Website & landing copy", "Sales & product descriptions", "Marketing & social copy", "Conversion-focused writing"], cta: "Get copy that converts" },
-  { id: "ai-automation", title: "AI & Automation Solutions", accent: "#a974ff", summary: "Practical AI-powered workflows and automation for repetitive digital tasks — a growing area I build in.", highlights: ["AI workflow design", "Make.com & n8n workflows", "API integrations", "Content & chatbot automation"], cta: "Explore an automation" },
-  { id: "web", title: "Website Development", accent: "#3df0ff", summary: "Modern, responsive websites and interfaces — from personal sites to AI-powered web apps.", highlights: ["Business & portfolio sites", "Landing pages", "SaaS-style interfaces", "AI-powered web apps"], cta: "Build a website" },
+  { id: "ebooks", title: "eBook Writing & Creation", accent: "#ff4dcb", summary: "Turn ideas into structured, engaging, professionally written eBooks — ready for publishing.", highlights: ["Complete eBook writing", "Structure & chapter development", "Research-based nonfiction", "Editing & KDP-ready formatting"], cta: "Start an eBook project", ctaHref: "/writing", ctaLabel: "Explore Writing →" },
+  { id: "copywriting", title: "Copywriting", accent: "#ff4dcb", summary: "Compelling copy for websites, landing pages, products, and campaigns that actually communicate.", highlights: ["Website & landing copy", "Sales & product descriptions", "Marketing & social copy", "Conversion-focused writing"], cta: "Get copy that converts", ctaHref: "/writing", ctaLabel: "See Writing Samples →" },
+  { id: "ai-automation", title: "AI & Automation Solutions", accent: "#a974ff", summary: "Practical AI-powered workflows and automation for repetitive digital tasks — a growing area I build in.", highlights: ["AI workflow design", "Make.com & n8n workflows", "API integrations", "Content & chatbot automation"], cta: "Explore an automation", ctaHref: "/projects?category=ai-automation", ctaLabel: "Explore AI Projects →" },
+  { id: "web", title: "Website Development", accent: "#3df0ff", summary: "Modern, responsive websites and interfaces — from personal sites to AI-powered web apps.", highlights: ["Business & portfolio sites", "Landing pages", "SaaS-style interfaces", "AI-powered web apps"], cta: "Build a website", ctaHref: "/projects?category=web-development", ctaLabel: "View Web Projects →" },
+  { id: "ebook-cover", title: "eBook Cover Design", accent: "#ff4dcb", summary: "Cover design that captures a book's tone and draws the right reader — from concept direction to finished artwork.", highlights: ["Cover concept & direction", "Typography & layout", "Genre-aligned artwork", "Print & digital formats"], cta: "Design a cover", ctaHref: "/writing", ctaLabel: "View Book Covers →" },
+  { id: "youtube", title: "YouTube & Content Creation", accent: "#ffb13d", summary: "I develop digital content from idea to finished visual experience, combining storytelling, research, AI tools, visual design, video editing, and content systems.", highlights: ["YouTube channel development", "Faceless YouTube content", "YouTube Shorts", "Scriptwriting", "Content ideation", "Visual storytelling", "AI-assisted production", "Video editing", "Animation", "Thumbnail concepts", "Content repurposing", "Social media content systems"], cta: "Start a content project", ctaHref: "/content", ctaLabel: "Explore Content Work →" },
 ];
 
-export type Writing = { id: string; title: string; category: string; description: string; status: string; link?: string };
+// Maps a service CTA category param to an existing project filter id.
+export function projectCategoryFromParam(param: string | null): string {
+  if (!param) return "all";
+  const map: Record<string, string> = {
+    "ai-automation": "ai",
+    "web-development": "websites",
+    "dashboards": "dashboards",
+    "saas": "saas",
+    "digital-products": "e-commerce",
+    "content-systems": "media",
+  };
+  return map[param] ?? "all";
+}
+
+// Four connected areas Joseph works across — used for the Services positioning block.
+export const serviceGroups: { key: string; label: string; blurb: string; accent: string }[] = [
+  { key: "build", label: "BUILD", blurb: "AI, automation, websites, and digital products.", accent: "#3df0ff" },
+  { key: "write", label: "WRITE", blurb: "Fiction, nonfiction, eBooks, copywriting, and publishing.", accent: "#ff4dcb" },
+  { key: "design", label: "DESIGN", blurb: "eBook covers, digital interfaces, and visual experiences.", accent: "#a974ff" },
+  { key: "create", label: "CREATE", blurb: "YouTube, video, animation, storytelling, and AI-assisted content.", accent: "#ffb13d" },
+];
+
+// Content & Media skill pills for the Skills page.
+export const contentSkills: { label: string }[] = [
+  { label: "YouTube" },
+  { label: "YouTube Shorts" },
+  { label: "Faceless Content" },
+  { label: "Video Editing" },
+  { label: "Animation" },
+  { label: "Visual Storytelling" },
+  { label: "Scriptwriting" },
+  { label: "Content Strategy" },
+  { label: "AI Content Creation" },
+  { label: "Thumbnail Design" },
+  { label: "Content Automation" },
+  { label: "Social Media Systems" },
+];
+
+export type Writing = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  author: string;
+  genre: "fiction" | "nonfiction";
+  category: string;
+  subcategory?: string;
+  description: string;
+  summary?: string;
+  themes: string[];
+  status: "Published" | "In Development" | "Researching" | "Concept" | "Idea" | "Draft" | "Planning";
+  excerpt?: string;
+  coverColor?: string;
+  coverImage?: string;
+  featured?: boolean;
+  published?: boolean;
+  link?: string;
+};
+
 export const writing: Writing[] = [
-  { id: "ebook-systems", title: "The Practical Builder's Field Notes", category: "eBook · Nonfiction", description: "A nonfiction eBook about learning technology by building small, real things instead of waiting to feel ready.", status: "In Development", link: "#" },
-  { id: "ai-automation-guide", title: "AI Automation, Without the Hype", category: "eBook · Guide", description: "A grounded guide to setting up useful automations with AI — written for non-technical creators.", status: "Planning", link: "#" },
-  { id: "article-ai-tools", title: "How I Use AI Tools to Ship Faster", category: "Article · Technology", description: "A practical look at the AI coding and writing tools I use weekly, and where they genuinely help.", status: "Draft", link: "#" },
-  { id: "article-copy", title: "Writing Copy That Sounds Like a Human", category: "Article · Copywriting", description: "Notes on clarity, voice, and persuasion for founders writing their own marketing.", status: "Draft", link: "#" },
+  {
+    id: "productivity-busy-moms",
+    title: "Productivity for Busy Moms",
+    subtitle: "Practical Systems for Managing Family, Work, and Self",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Productivity",
+    subcategory: "Time Management",
+    description: "Practical time management and productivity strategies designed specifically for mothers juggling family, work, and personal goals.",
+    summary: "Modern motherhood often comes with an overwhelming number of responsibilities competing for the same limited hours of the day.\n\nThis book explores practical ways busy mothers can create more manageable systems for everyday life without chasing unrealistic versions of productivity.\n\nIt focuses on simplifying routines, organizing responsibilities, reducing mental overload, planning more effectively, and creating systems that work within the realities of family life.\n\nRather than promoting the idea that a mother must do everything perfectly, the book focuses on practical organization, realistic routines, and creating more breathing room in a busy life.",
+    themes: ["Time management", "Daily routines", "Home organization", "Planning", "Mental overload", "Productivity", "Family responsibilities", "Practical systems"],
+    status: "In Development",
+    coverColor: "#b6ff3d",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-a627c161-6b67-4b6d-a6d0-c9dfea2b9be5.png",
+    featured: true,
+  },
+  {
+    id: "ai-tools-vas",
+    title: "AI Tools for Virtual Assistants",
+    subtitle: "Work Smarter, Deliver More Value",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "AI & Tech",
+    subcategory: "AI Guides",
+    description: "A practical guide to the AI tools and workflows that virtual assistants can use to work faster, communicate better, and deliver more value to their clients.",
+    summary: "Artificial intelligence is changing the way many digital professionals work.\n\nAI Tools for Virtual Assistants explores practical ways virtual assistants can use modern AI tools to support their daily work, improve productivity, reduce repetitive tasks, and deliver better services to clients.\n\nThe book explores applications such as research, writing assistance, document creation, communication, organization, content support, and workflow automation.\n\nRather than presenting AI as a replacement for human skill, the book focuses on how virtual assistants can use AI as a practical tool to work more efficiently and expand the value they provide.",
+    themes: ["AI tools", "Virtual assistance", "Productivity", "Research", "Content support", "Workflow automation", "Client services", "Digital work"],
+    status: "In Development",
+    coverColor: "#3df0ff",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-b2bb80a8-51e3-4ae6-a589-58947759ffa8.jpg",
+    featured: true,
+  },
+  {
+    id: "ai-freelancers",
+    title: "AI for Freelancers",
+    subtitle: "A Grounded Guide to Practical AI in Your Freelance Work",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "AI & Tech",
+    subcategory: "AI Guides",
+    description: "A grounded, practical guide for freelancers looking to integrate AI tools into their workflow — without the hype, without the fluff.",
+    summary: "Freelancers are constantly balancing client work, communication, marketing, research, administration, and the actual delivery of their services.\n\nAI for Freelancers explores how modern AI tools can support freelancers across these different areas.\n\nThe book focuses on practical applications such as research, writing, brainstorming, client communication, proposals, task organization, content creation, and workflow improvement.\n\nIt presents AI as a tool that can help freelancers reduce repetitive work, improve their processes, and spend more time focusing on valuable creative and professional work.",
+    themes: ["Freelancing", "AI tools", "Productivity", "Client work", "Research", "Writing", "Automation", "Business workflows"],
+    status: "Researching",
+    coverColor: "#4d8bff",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-28987222-0532-4b14-8b9b-3519d09ec73c.jpg",
+  },
+  {
+    id: "the-trust-factor",
+    title: "The Trust Factor: Rebuilding Love After Betrayal",
+    subtitle: "Building, Breaking, and Restoring Trust in Relationships",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Relationships",
+    subcategory: "Relationship Dynamics",
+    description: "An exploration of what trust really means in relationships — how it's built, how it's broken, and how it's restored.",
+    summary: "Betrayal can change the way people experience love, trust, vulnerability, and emotional safety.\n\nThe Trust Factor: Rebuilding Love After Betrayal explores the difficult and often complicated process of rebuilding trust after a relationship has been damaged by betrayal.\n\nThe book examines communication, accountability, emotional honesty, forgiveness, boundaries, and the difficult question of whether trust can truly be rebuilt.\n\nIt also recognizes that rebuilding a relationship is not always the right choice for everyone.\n\nAt its heart, the book explores what it takes to create emotional safety again — whether that means rebuilding the relationship or finding the strength to move forward.",
+    themes: ["Betrayal", "Trust", "Relationships", "Communication", "Accountability", "Forgiveness", "Emotional safety", "Boundaries"],
+    status: "Concept",
+    coverColor: "#ffb13d",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-9ccbd65a-6d96-4825-8396-1f13f69c2dfb.jpg",
+  },
+  {
+    id: "dark-psychology",
+    title: "Dark Psychology and Emotional Control",
+    subtitle: "Understanding Manipulation and Protecting Your Mind",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Psychology",
+    subcategory: "Self-Awareness",
+    description: "An examination of psychological manipulation tactics, emotional influence, and the awareness needed to recognize and respond to them.",
+    summary: "People are influenced by the words, behaviors, emotions, and psychological tactics of others every day.\n\nDark Psychology and Emotional Control explores the darker side of psychological influence, manipulation, persuasion, and emotional control.\n\nThe purpose of the book is not to teach readers how to exploit other people.\n\nInstead, it focuses on awareness.\n\nThe book explores how people may recognize unhealthy manipulation, understand psychological influence, identify emotional control, become more aware of harmful patterns, and protect their emotional independence.\n\nUnderstanding these dynamics can help people make more informed decisions about the relationships and situations they find themselves in.",
+    themes: ["Psychological influence", "Emotional manipulation", "Persuasion", "Emotional control", "Self-awareness", "Boundaries", "Psychological protection", "Emotional independence"],
+    status: "Researching",
+    coverColor: "#ff4dcb",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-5080ebbf-88bc-43ba-9a6d-7e3cfdfca445.jpg",
+  },
+  {
+    id: "boundary-mastery",
+    title: "Boundary Mastery: How to Protect Your Heart Without Closing It",
+    subtitle: "The Art of Setting and Keeping Healthy Boundaries",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Personal Development",
+    subcategory: "Self-Improvement",
+    description: "A practical guide to understanding, setting, and maintaining healthy boundaries in relationships, work, and daily life.",
+    summary: "Protecting yourself does not mean becoming cold.\n\nSetting boundaries does not mean pushing everyone away.\n\nBoundary Mastery: How to Protect Your Heart Without Closing It explores how people can develop healthier boundaries while remaining open to connection, love, trust, and meaningful relationships.\n\nThe book explores the difference between healthy self-protection and emotional isolation.\n\nIt examines how to say no, communicate personal limits, protect emotional energy, recognize unhealthy relationship patterns, and maintain self-respect without completely closing yourself off from others.\n\nThe central idea is simple: You can protect your heart without building a wall around it.",
+    themes: ["Emotional boundaries", "Self-respect", "Communication", "Relationships", "Emotional protection", "Vulnerability", "Trust", "Personal growth"],
+    status: "Concept",
+    coverColor: "#a974ff",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-244c6ae9-3f0d-48cf-a58f-d2b880c044fb.jpg",
+  },
+  {
+    id: "male-female-dynamic",
+    title: "Female Mind / Male Mind Dynamic",
+    subtitle: "Understanding Communication, Emotion, and Connection",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Relationships",
+    subcategory: "Gender Dynamics",
+    description: "A thoughtful exploration of communication styles, emotional needs, and relationship dynamics between men and women.",
+    summary: "Relationships are often affected by differences in communication, expectations, emotional expression, personality, experience, and cultural conditioning.\n\nFemale Mind / Male Mind Dynamic explores common patterns that can influence how men and women may communicate, process emotions, understand relationships, and respond to conflict.\n\nThe book should not present men and women as rigidly identical or completely different.\n\nInstead, it should encourage readers to explore relationship dynamics with nuance and curiosity.\n\nIndividual personality, life experience, culture, and personal values all play an important role in how people think and behave.\n\nThe goal is not to create stereotypes.\n\nThe goal is to encourage better understanding, communication, and awareness between people.",
+    themes: ["Communication", "Relationships", "Emotional expression", "Expectations", "Conflict", "Gender dynamics", "Personality", "Human behavior"],
+    status: "Concept",
+    coverColor: "#ff5d6c",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-a3461d4f-8a59-4871-a1c6-13c506783cf4.jpg",
+  },
+  {
+    id: "shadows-of-tomorrow",
+    title: "Shadows of Tomorrow",
+    subtitle: "A Novel About Choice, Consequence, and the Paths Not Taken",
+    author: "Joseph Unaogu",
+    genre: "fiction",
+    category: "Literary Fiction",
+    subcategory: "Speculative Science Fiction",
+    description: "A literary fiction concept exploring choice, consequence, and the paths not taken.",
+    summary: "The Shadows of Tomorrow is a speculative psychological science-fiction story about the uncertainty of the future and the hidden consequences of the choices people make today.\n\nSet against a world increasingly shaped by technology, surveillance, artificial intelligence, and rapidly changing societies, the story explores what happens when humanity begins to encounter possibilities of the future that were never meant to be seen.\n\nAs the boundary between prediction and reality begins to disappear, the characters are forced to confront difficult questions about identity, memory, free will, and the nature of destiny. Is the future something that can truly be changed, or are people simply moving toward events that have already been set in motion?\n\nThe story explores the psychological weight of knowing what may come next and the danger of allowing fear of the future to control the present. As hidden truths begin to surface, the shadows of tomorrow become more than distant possibilities — they become reflections of the choices, fears, and secrets people have carried with them all along.\n\nThe Shadows of Tomorrow is a story about technology, uncertainty, human nature, and the consequences of looking too far into the future. It combines mystery, psychological tension, speculative science fiction, and emotional storytelling into a journey through the possibilities of what humanity may become.",
+    themes: ["choice", "consequence", "memory", "identity", "technology", "surveillance", "artificial intelligence", "free will", "human nature", "uncertainty"],
+    status: "Concept",
+    coverColor: "#a974ff",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-88da20e4-a052-42bd-bf58-96f106089675.jpg",
+  },
+  {
+    id: "the-last-archive",
+    title: "The Last Archive",
+    subtitle: "When Memory Becomes Currency — A Speculative Tale",
+    author: "Joseph Unaogu",
+    genre: "fiction",
+    category: "Speculative Fiction",
+    subcategory: "Science-Fiction Mystery",
+    description: "A speculative fiction concept set in a world where memory is currency.",
+    summary: "The Last Archives is a science-fiction mystery about the final surviving repository of humanity's knowledge after the world as it was once known has disappeared.\n\nIn a future shaped by technological advancement, conflict, environmental change, and the collapse of systems that once connected civilization, the remains of humanity's history are scattered, corrupted, or forgotten.\n\nSomewhere beyond the ruins of the old world lies the Last Archive — a mysterious repository believed to contain the final complete record of human civilization. Within its vast chambers are records of forgotten discoveries, lost cultures, abandoned technologies, hidden conflicts, and truths that powerful forces may have spent generations trying to erase.\n\nWhen the archive is finally discovered, the search for knowledge becomes something far more dangerous. The records do not simply explain the past. They reveal secrets about how the present world came to exist and raise unsettling questions about what may happen next.\n\nAs the truth begins to emerge, the characters must decide whether every truth deserves to be recovered, whether knowledge can truly save humanity, and whether some parts of history were deliberately forgotten for a reason.\n\nThe Last Archives explores the relationship between memory and power, the preservation of knowledge, the fragility of civilization, and humanity's desire to understand where it came from.\n\nIt is a story about forgotten history, lost knowledge, discovery, secrets, and the final question that remains when almost everything else has been lost:\n\nWhat will humanity choose to remember?",
+    themes: ["memory", "identity", "dystopia", "humanity", "technology", "lost knowledge", "discovery", "secrets", "civilization", "power"],
+    status: "Idea",
+    coverColor: "#4d8bff",
+    coverImage: "https://cdn.phototourl.com/free/2026-07-20-d4aba4f2-93c8-45f4-8a5d-53f710f069f5.jpg",
+  },
+  {
+    id: "copywriting-portfolio",
+    title: "Copywriting Portfolio",
+    subtitle: "Web Copy, Product Descriptions, and Marketing Content",
+    author: "Joseph Unaogu",
+    genre: "nonfiction",
+    category: "Copywriting",
+    subcategory: "Professional Writing",
+    description: "Samples and case studies from professional copywriting work — website copy, product descriptions, email campaigns, and marketing content.",
+    summary: "Copywriter Portfolio is a curated collection of writing, messaging, and creative communication work designed to demonstrate the power of words in digital spaces.\n\nThe portfolio explores how strong copy can transform ideas into clear messages, turn attention into interest, and help brands communicate with the people they want to reach.\n\nIt showcases different approaches to writing, including website copy, landing page messaging, brand communication, product descriptions, service descriptions, marketing content, social media copy, and other forms of digital communication.\n\nAt its core, the portfolio reflects an approach to copywriting built around clarity, psychology, creativity, and purpose. Every piece of copy should do more than simply fill a page. It should communicate an idea, create interest, build trust, guide attention, and encourage the reader to take the next step.\n\nCopywriter Portfolio represents Joseph Unaogu's ability to take complex ideas and turn them into clear, engaging, and purposeful communication.\n\nIt is a collection of words written to inform, persuade, connect, and move people.",
+    themes: ["copywriting", "marketing", "brand voice", "digital content", "clarity", "psychology", "creativity", "communication"],
+    status: "In Development",
+    coverColor: "#3df0ff",
+    coverImage: "https://cdn.phototourl.com/member/2026-07-20-bb53c054-fd9b-4237-9280-0062fe345c87.jpg",
+  },
 ];
 
 export const nowFocus = [

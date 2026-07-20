@@ -23,8 +23,8 @@ function Card({ p, featured }: { p: Project; featured?: boolean }) {
   );
 }
 
-export function ProjectGrid() {
-  const [filter, setFilter] = useState("all");
+export function ProjectGrid({ initial = "all" }: { initial?: string }) {
+  const [filter, setFilter] = useState(initial);
   const filtered = projects.filter((p) => projectMatchesFilter(p, filter));
   return (
     <div>
