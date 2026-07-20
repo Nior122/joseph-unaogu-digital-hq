@@ -9,7 +9,6 @@ export const site = {
   socials: [
     { label: "WhatsApp", href: "https://wa.me/2347046118938", handle: "+234 704 611 8938" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/joseph-unaogu-72b2ba245/", handle: "in/joseph-unaogu" },
-    { label: "YouTube", href: "https://youtube.com/", handle: "Coming soon" },
     { label: "X / Twitter", href: "https://x.com/Bigcherem", handle: "@Bigcherem" },
   ],
 };

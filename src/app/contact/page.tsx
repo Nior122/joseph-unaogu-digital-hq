@@ -2,9 +2,9 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
 import ContactForm from "@/components/contact/contact-form";
 import { site } from "@/lib/content";
-import { Mail, Linkedin, Youtube, Twitter, Briefcase, MessageCircle, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Twitter, Briefcase, MessageCircle, ArrowUpRight } from "lucide-react";
 export const metadata = { title: "Contact", description: "Have an idea? Contact Joseph Unaogu for eBook writing, copywriting, website development, AI applications, and automation work." };
-const socialIcons: Record<string, typeof Mail> = { LinkedIn: Linkedin, YouTube: Youtube, "X / Twitter": Twitter, WhatsApp: MessageCircle };
+const socialIcons: Record<string, typeof Mail> = { LinkedIn: Linkedin, "X / Twitter": Twitter, WhatsApp: MessageCircle };
 const whatsappUrl = "https://wa.me/2347046118938";
 export default function ContactPage() {
   return (<><PageHeader eyebrow="Contact" title={<>Have an idea? <span className="text-gradient">Let's build something.</span></>} description="Whether you need help turning an idea into an eBook, creating compelling copy, building a website, or exploring an AI-powered digital solution — I'd love to hear what you're working on." />
