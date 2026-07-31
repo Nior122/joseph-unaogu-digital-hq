@@ -75,7 +75,7 @@ export default function HomePage() {
 
       <section className="relative overflow-hidden border-t border-white/10 bg-ink-900/40 py-24">
         <div className="container-px text-center">
-          <Reveal><span className="eyebrow mb-5 justify-center">Let's build</span><h2 className="mx-auto max-w-3xl font-display text-3xl font-semibold tracking-tighter2 text-paper sm:text-5xl text-balance">Have an idea? Let's build something useful.</h2><p className="mx-auto mt-6 max-w-xl text-lg text-paper-muted text-balance">eBook, copy, website, or an AI-powered experiment — I'd love to hear what you're working on.</p><div className="mt-9 flex flex-wrap justify-center gap-3"><Button href="/contact" size="lg">Start a conversation</Button><Button href="/now" variant="secondary" size="lg">See what I'm doing now</Button></div><p className="mt-8 font-mono text-sm text-paper-dim">{site.email}</p></Reveal>
+          <Reveal><span className="eyebrow mb-5 justify-center">Let's build</span><h2 className="mx-auto max-w-3xl font-display text-3xl font-semibold tracking-tighter2 text-paper sm:text-5xl text-balance">Have an idea? Let's build something useful.</h2><p className="mx-auto mt-6 max-w-xl text-lg text-paper-muted text-balance">eBook, copy, website, or an AI-powered experiment — I'd love to hear what you're working on.</p><div className="mt-9 flex flex-wrap justify-center gap-3"><Button href="/contact" size="lg" className="w-full sm:w-auto">Start a conversation</Button><Button href="/now" variant="secondary" size="lg" className="w-full sm:w-auto">See what I'm doing now</Button></div><p className="mt-8 font-mono text-sm text-paper-dim">{site.email}</p></Reveal>
         </div>
       </section>
     </>

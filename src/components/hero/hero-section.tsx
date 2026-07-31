@@ -32,9 +32,9 @@ export function HeroSection() {
             I&apos;m Joseph Unaogu — a digital builder exploring software, AI, automation, writing, and creative technology. I learn by building real things and turn ideas into useful digital experiences.
           </p>
           <div className="mt-9 flex animate-fade-up flex-wrap items-center gap-3" style={{ animationDelay: "0.34s" }}>
-            <Button href="/projects" size="lg">Explore My Work</Button>
-            <Button href="/contact" variant="secondary" size="lg">Let&apos;s Work Together</Button>
-            <Button href="/resume" variant="ghost" size="lg">Download Resume</Button>
+            <Button href="/projects" size="lg" className="w-full sm:w-auto">Explore My Work</Button>
+            <Button href="/contact" variant="secondary" size="lg" className="w-full sm:w-auto">Let&apos;s Work Together</Button>
+            <Button href="/resume" variant="ghost" size="lg" className="w-full sm:w-auto">Download Resume</Button>
           </div>
           <p className="mt-8 font-mono text-sm text-paper-dim"><span className="text-neon-cyan">build.</span> explore. create.</p>
         </div>

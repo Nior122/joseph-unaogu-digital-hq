@@ -49,6 +49,10 @@
   ::-webkit-scrollbar-thumb { background: #1e2433; border-radius: 999px; }
   ::-webkit-scrollbar-thumb:hover { background: #2a3346; }
   :focus-visible { outline: 2px solid rgba(61,240,255,0.6); outline-offset: 2px; }
+  /* Prevent iOS Safari zoom-on-focus: form controls need >=16px font on small screens */
+  @media (max-width: 640px) {
+    input, select, textarea { font-size: 16px; }
+  }
 }
 
 @layer components {

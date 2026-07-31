@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   openGraph: { type: "website", url, title: "Joseph Unaogu — Digital Builder in Motion", description: "A personal digital HQ: software, AI, automation, writing, and creative technology. Always learning. Always building.", siteName: "Joseph Unaogu" },
   twitter: { card: "summary_large_image", title: "Joseph Unaogu — Digital Builder in Motion", description: "Software, AI, automation, writing, and creative technology. Always learning. Always building." },
   robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#050609",
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

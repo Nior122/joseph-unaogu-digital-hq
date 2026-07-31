@@ -13,9 +13,9 @@ export function HeroPanel() {
   useEffect(() => { const t = setInterval(() => setActive((v) => (v + 1) % lines.length), 1800); return () => clearInterval(t); }, []);
   return (
     <div className="surface relative overflow-hidden shadow-card">
-      <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+      <div className="flex min-w-0 items-center gap-2 border-b border-white/10 px-4 py-3">
         <span className="h-3 w-3 rounded-full bg-signal-red/70" /><span className="h-3 w-3 rounded-full bg-signal-yellow/70" /><span className="h-3 w-3 rounded-full bg-signal-green/70" />
-        <span className="ml-2 inline-flex items-center gap-1.5 text-xs text-paper-dim"><Terminal size={13} /> joseph@digital-hq — live</span>
+        <span className="ml-2 inline-flex min-w-0 items-center gap-1.5 truncate text-xs text-paper-dim"><Terminal size={13} /> joseph@digital-hq — live</span>
       </div>
       <div className="grid grid-cols-1 gap-px bg-white/5 sm:grid-cols-2">
         <div className="bg-ink-900/60 p-4"><Cpu size={16} className="text-neon-cyan" /><p className="mt-2 text-xs text-paper-dim">SYSTEM</p><p className="text-sm text-paper">digital builder</p></div>
@@ -26,7 +26,7 @@ export function HeroPanel() {
         <p className="text-paper">builder · writer · creator</p>
         <p className="pt-2 text-paper-dim"><span className="text-signal-green">$</span> status --now</p>
         <ul className="space-y-1.5">
-          {lines.map((l, i) => (<li key={l.text} className={`flex items-center justify-between rounded-md px-2.5 py-1.5 transition-all duration-500 ${i === active ? "bg-white/5" : "opacity-60"}`}><span className="flex items-center gap-2"><span className={`h-1.5 w-1.5 rounded-full bg-current ${l.tone}`} /><span className={l.tone}>{l.text}</span></span><span className="text-[11px] uppercase tracking-wider text-paper-dim">{l.cmd}</span></li>))}
+          {lines.map((l, i) => (<li key={l.text} className={`flex min-w-0 items-center justify-between gap-3 rounded-md px-2.5 py-1.5 transition-all duration-500 ${i === active ? "bg-white/5" : "opacity-60"}`}><span className="flex min-w-0 items-center gap-2"><span className={`h-1.5 w-1.5 shrink-0 rounded-full bg-current ${l.tone}`} /><span className={`truncate ${l.tone}`}>{l.text}</span></span><span className="shrink-0 text-[11px] uppercase tracking-wider text-paper-dim">{l.cmd}</span></li>))}
         </ul>
         <p className="pt-2 text-paper-dim"><span className="text-signal-green">$</span> <span className="inline-block h-4 w-2 translate-y-0.5 animate-soft-pulse bg-neon-cyan" /></p>
       </div>

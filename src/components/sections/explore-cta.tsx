@@ -29,7 +29,7 @@ export function ExploreCta() {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={cn(
-        "group relative block overflow-hidden rounded-3xl border border-neon-cyan/30 bg-ink-900/60 px-8 py-20 text-center sm:px-12 sm:py-28",
+        "group relative block overflow-hidden rounded-3xl border border-neon-cyan/30 bg-ink-900/60 px-6 py-16 text-center sm:px-12 sm:py-28",
         "transition-colors duration-300 hover:border-neon-cyan/60"
       )}
       style={{
@@ -62,7 +62,7 @@ export function ExploreCta() {
 
       <div className="relative">
         <p className="eyebrow justify-center">Want to see what I&apos;ve built?</p>
-        <h2 className="mx-auto mt-5 max-w-3xl font-display text-4xl font-semibold tracking-tighter2 text-paper sm:text-6xl text-balance">
+        <h2 className="mx-auto mt-5 max-w-3xl font-display text-3xl font-semibold tracking-tighter2 text-paper sm:text-6xl text-balance">
           <span className="bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-magenta bg-clip-text text-transparent neon-text">
             EXPLORE THE WORK
           </span>
@@ -72,7 +72,7 @@ export function ExploreCta() {
           creative projects built through continuous learning and experimentation.
         </p>
         <motion.span
-          className="mt-9 inline-flex items-center gap-2 rounded-full border border-neon-cyan/40 bg-neon-cyan/10 px-7 py-3.5 text-sm font-medium text-neon-cyan"
+          className="mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full border border-neon-cyan/40 bg-neon-cyan/10 px-7 py-3.5 text-sm font-medium text-neon-cyan sm:w-auto"
           animate={hover && !reduce ? { x: 4 } : { x: 0 }}
         >
           EXPLORE ALL PROJECTS
