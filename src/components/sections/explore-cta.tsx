@@ -29,7 +29,7 @@ export function ExploreCta() {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={cn(
-        "group relative block overflow-hidden rounded-3xl border border-neon-cyan/30 bg-ink-900/60 px-6 py-16 text-center sm:px-12 sm:py-28",
+        "group relative block overflow-hidden rounded-3xl border border-neon-cyan/30 bg-ink-900/60 px-5 py-12 text-center sm:px-12 sm:py-28",
         "transition-colors duration-300 hover:border-neon-cyan/60"
       )}
       style={{

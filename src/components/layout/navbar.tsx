@@ -27,7 +27,7 @@ export function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent")}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", (scrolled || open) ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent")}>
       <nav className="container-px flex h-16 items-center justify-between">
         <Link href="/" className="group flex items-center gap-2.5">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-neon-cyan/15 text-neon-cyan ring-1 ring-neon-cyan/30 transition group-hover:bg-neon-cyan/25"><span className="font-display text-lg font-bold">J</span></span>

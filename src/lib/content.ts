@@ -153,6 +153,38 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "drape", name: "Drape", url: "https://drape-fzs.pages.dev/",
+    description: "A bespoke fashion marketplace connecting discerning clients with talented tailors and designers for fully custom-made clothing and accessories.",
+    category: "E-commerce", accent: "#ffb13d", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["Next.js", "React", "Marketplace UI", "E-commerce"], role: "Designer & Developer",
+    problem: "Finding reliable tailors and designers for custom clothing is difficult, and the commission process is often disorganized.",
+    approach: "Designed a premium marketplace experience to streamline discovery, communication, and commissions between clients and fashion creators.",
+    lessons: "In premium e-commerce, the visual interface and trust signals are just as important as the functional transaction flow.",
+    health: "ONLINE", lastChecked: "Recent",
+  },
+  {
+    id: "eduflow", name: "EduFlow", url: "https://eduflow-five-psi.vercel.app/",
+    description: "An AI-powered school operating system that digitizes everything from attendance to AI-generated report comments and lesson plans.",
+    category: "SAAS", accent: "#4d8bff", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["Next.js", "React", "AI Integrations", "Role-Based Auth"], role: "Builder & Developer",
+    problem: "School administration involves tedious manual tasks like report writing, attendance tracking, and lesson planning that take time away from students.",
+    approach: "Built a comprehensive dashboard platform featuring student management, role-based access, and AI tools for generating educational content.",
+    lessons: "Automating routine administrative tasks with AI can save hundreds of hours, making educational software highly impactful.",
+    health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/eduflow.png",
+  },
+  {
+    id: "hireflows", name: "HireFlow", url: "https://hireflows.vercel.app/",
+    description: "An AI-powered job tracker and recruitment platform for tracking applications, optimizing resumes, and managing hiring pipelines.",
+    category: "SAAS", accent: "#a974ff", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["Next.js", "Clerk", "Prisma", "Groq AI", "shadcn/ui"], role: "Builder & Developer",
+    problem: "Managing the recruitment process and tracking job applications is often manual and tedious for both job seekers and employers.",
+    approach: "Built a comprehensive platform featuring an AI-powered Kanban board for application tracking and smart candidate pipelines.",
+    lessons: "Integrating AI directly into workflows (like email scanning and reply drafting) delivers the most immediate value to users.",
+    health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/hireflow.png",
+  },
+  {
     id: "velvet-fade", name: "Velvet & Fade", url: "https://velvet-and-fade-salon.vercel.app/",
     description: "A premium digital experience for a modern salon and beauty business — presenting services, atmosphere, brand identity, and customer conversion through an elegant web experience.",
     category: "Websites", accent: "#ff4dcb", status: "live", availability: "Available for Customization",

@@ -19,7 +19,7 @@ export function RotatingWord() {
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+    <section className="relative overflow-hidden pb-12 pt-24 sm:pb-16 sm:pt-32 md:pt-40">
       <div className="container-px grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <span className="eyebrow mb-6 animate-fade-up">Personal Digital HQ</span>
