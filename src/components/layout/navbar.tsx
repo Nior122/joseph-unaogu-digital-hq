@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/content";
+import { ThemeToggle } from "@/components/theme-toggle";
+
 const links = [
   { href: "/", label: "Home" }, { href: "/about", label: "About" }, { href: "/skills", label: "Skills" },
   { href: "/projects", label: "Projects" }, { href: "/services", label: "Services" }, { href: "/writing", label: "Writing" },
@@ -36,8 +38,12 @@ export function Navbar() {
         <div className="hidden items-center gap-1 lg:flex">
           {links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-full px-3.5 py-2 text-sm transition-colors", active ? "text-neon-cyan" : "text-paper-dim hover:text-paper")}>{l.label}</Link>); })}
           <Link href="/contact" className="ml-2 rounded-full bg-neon-cyan px-4 py-2 text-sm font-medium text-ink-950 transition hover:brightness-110">Let&apos;s talk</Link>
+          <ThemeToggle className="ml-2" />
         </div>
-        <button className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-paper lg:hidden" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu" aria-expanded={open} aria-controls="mobile-menu">{open ? <X size={18} /> : <Menu size={18} />}</button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-paper" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu" aria-expanded={open} aria-controls="mobile-menu">{open ? <X size={18} /> : <Menu size={18} />}</button>
+        </div>
       </nav>
       {open && (<div id="mobile-menu" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden"><div className="container-px grid gap-1 py-4">{links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-lg px-4 py-3 text-sm transition-colors", active ? "bg-white/5 text-neon-cyan" : "text-paper-muted hover:bg-white/5 hover:text-paper")}>{l.label}</Link>); })}<Link href="/contact" className="mt-2 rounded-lg bg-neon-cyan px-4 py-3 text-center text-sm font-medium text-ink-950">Let&apos;s talk</Link><p className="break-all px-4 pt-3 text-xs text-paper-dim">{site.email}</p></div></div>)}
     </header>

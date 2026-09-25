@@ -6,14 +6,14 @@ const config: Config = {
     extend: {
       colors: {
         ink: {
-          950: "#050609",
-          900: "#080a10",
-          850: "#0c0f17",
-          800: "#10141f",
-          700: "#161b29",
-          600: "#1e2433",
+          950: "rgb(var(--ink-950) / <alpha-value>)",
+          900: "rgb(var(--ink-900) / <alpha-value>)",
+          850: "rgb(var(--ink-850) / <alpha-value>)",
+          800: "rgb(var(--ink-800) / <alpha-value>)",
+          700: "rgb(var(--ink-700) / <alpha-value>)",
+          600: "rgb(var(--ink-600) / <alpha-value>)",
         },
-        paper: { DEFAULT: "#eef1f7", muted: "#a7b0c4", dim: "#69728a" },
+        paper: { DEFAULT: "rgb(var(--paper-default) / <alpha-value>)", muted: "rgb(var(--paper-muted) / <alpha-value>)", dim: "rgb(var(--paper-dim) / <alpha-value>)" },
         neon: {
           cyan: "#3df0ff",
           violet: "#a974ff",

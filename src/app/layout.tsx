@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -30,13 +32,15 @@ export const viewport: Viewport = {
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-ink-950 font-sans text-paper antialiased">
-        <JsonLd />
-        <DigitalBackdrop />
-        <Navbar />
-        <main className="relative">{children}</main>
-        <Footer />
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
+          <JsonLd />
+          <DigitalBackdrop />
+          <Navbar />
+          <main className="relative">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
