@@ -171,7 +171,6 @@ export const projects: Project[] = [
     approach: "Built a comprehensive dashboard platform featuring student management, role-based access, and AI tools for generating educational content.",
     lessons: "Automating routine administrative tasks with AI can save hundreds of hours, making educational software highly impactful.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/eduflow.png",
   },
   {
     id: "hireflows", name: "HireFlow", url: "https://hireflows.vercel.app/",
@@ -182,7 +181,6 @@ export const projects: Project[] = [
     approach: "Built a comprehensive platform featuring an AI-powered Kanban board for application tracking and smart candidate pipelines.",
     lessons: "Integrating AI directly into workflows (like email scanning and reply drafting) delivers the most immediate value to users.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/hireflow.png",
   },
   {
     id: "velvet-fade", name: "Velvet & Fade", url: "https://velvet-and-fade-salon.vercel.app/",
