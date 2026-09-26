@@ -153,6 +153,17 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "solar-system", name: "Solar System Explorer", url: "https://solar-system-explorer-silk.vercel.app/",
+    description: "An interactive 3D solar system simulation visualizing planetary orbits, scales, and celestial mechanics.",
+    category: "Experiments", accent: "#ffb13d", status: "live", availability: "Concept",
+    featured: true, tech: ["WebGL", "Three.js", "React Three Fiber"], role: "Creative Developer",
+    problem: "Visualizing the vast scale and mechanics of our solar system in an interactive browser experience.",
+    approach: "Developed a 3D simulation with accurate orbital speeds, interactive camera controls, and dynamic lighting from the sun.",
+    lessons: "Managing scene complexity and lighting in 3D space requires careful balancing between visual fidelity and performance.",
+    health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/solar-system.png",
+  },
+  {
     id: "deep-ocean", name: "Deep Ocean Observatory", url: "https://deep-ocean-observatory.vercel.app/",
     description: "An immersive 3D interactive experience exploring the depths of the ocean and marine life.",
     category: "Experiments", accent: "#3df0ff", status: "live", availability: "Concept",
