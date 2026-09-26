@@ -153,6 +153,17 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "deep-ocean", name: "Deep Ocean Observatory", url: "https://deep-ocean-observatory.vercel.app/",
+    description: "An immersive 3D interactive experience exploring the depths of the ocean and marine life.",
+    category: "Experiments", accent: "#3df0ff", status: "live", availability: "Concept",
+    featured: true, tech: ["WebGL", "React Three Fiber", "Next.js", "Tailwind"], role: "Creative Developer",
+    problem: "Conveying the scale, mystery, and data of the deep ocean in an engaging educational format.",
+    approach: "Built a fully interactive 3D WebGL simulation with dynamic depth mapping, lighting, and an atmospheric HUD.",
+    lessons: "Performance optimization and state management in browser-based 3D requires careful management of draw calls.",
+    health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/deep-ocean.png",
+  },
+  {
     id: "drape", name: "Drape", url: "https://drape-fzs.pages.dev/",
     description: "A bespoke fashion marketplace connecting discerning clients with talented tailors and designers for fully custom-made clothing and accessories.",
     category: "E-commerce", accent: "#ffb13d", status: "live", availability: "Available for Customization",
