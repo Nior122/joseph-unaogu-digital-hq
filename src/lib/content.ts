@@ -153,6 +153,17 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "human-brain", name: "3D Human Brain Explorer", url: "https://3d-human-brain-explorer.vercel.app/",
+    description: "An interactive, educational 3D model of the human brain with detailed region analysis and labels.",
+    category: "Experiments", accent: "#7bd3ff", status: "live", availability: "Concept",
+    featured: true, tech: ["WebGL", "Three.js", "React Three Fiber", "Next.js"], role: "Creative Developer",
+    problem: "Providing a detailed, intuitive, and interactive educational tool for exploring complex neuroanatomy.",
+    approach: "Built a fully interactive WebGL model with clickable regions, an informational HUD, and smooth camera transitions.",
+    lessons: "Balancing high-poly model rendering with smooth interactive performance is key for educational 3D tools.",
+    health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/human-brain.png",
+  },
+  {
     id: "solar-system", name: "Solar System Explorer", url: "https://solar-system-explorer-silk.vercel.app/",
     description: "An interactive 3D solar system simulation visualizing planetary orbits, scales, and celestial mechanics.",
     category: "Experiments", accent: "#ffb13d", status: "live", availability: "Concept",
