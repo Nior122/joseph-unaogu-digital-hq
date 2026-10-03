@@ -129,16 +129,28 @@ export type ProjectAvailability =
 export type ProjectStatus = "live" | "in-progress" | "experiment" | "concept" | "archived";
 export type ProjectHealth = "ONLINE" | "OFFLINE" | "AUTH_REQUIRED" | "ERROR" | "UNKNOWN";
 
-// Real website screenshot pipeline (priority 1). Uses a hosted headless-browser
-// rendering service so the thumbnail shows the ACTUAL site, not a placeholder.
+// Real website screenshot pipeline (priority 1). Uses thum.io (a hosted
+// headless-browser rendering service) so the thumbnail shows the ACTUAL site,
+// not a placeholder.
 //
-// Caching: thum.io caches each URL by default. We pass `maxAge/N/` (in hours)
-// so the screenshot auto-refreshes when the live site changes. Default is 6h,
-// which keeps previews close to live without burning the free-tier quota.
+// thum.io cache model (verified from official docs):
+//   - thum.io caches each screenshot by the request path. Query strings
+//     (e.g. ?v=2) are NOT part of the cache key, so they CANNOT bust the
+//     cache on their own.
+//   - The only way to control cache freshness is the `maxAge/[N]/` path
+//     segment, where N is the cache TTL in hours.
+//   - `maxAge/0/` means "always re-render on every request" — bypasses
+//     the cache entirely.
 //
-// A `v` (version) param is appended so we can force-bust thum.io's cache when
-// the project itself is updated in content.ts (set via `screenshotVersion`
-// below, or by calling `bustScreenshot()`).
+// Our strategy:
+//   - Default: `maxAge/6/` (auto-refresh every 6 hours).
+//   - When a project has `screenshotVersion` set: `maxAge/0/` (always
+//     fresh). This is what makes the "bump the version to refresh"
+//     workflow actually work.
+//   - The postbuild `npm run prefetch` script hits the thum.io
+//     `/prefetch/` endpoint to warm the cache for every featured project
+//     on every deploy, so the first visitor after deploy always sees a
+//     fresh render.
 //
 // Priority order in the UI: live screenshot -> manual upload (previewImage) -> designed fallback.
 export function screenshotUrl(
@@ -148,9 +160,10 @@ export function screenshotUrl(
   const clean = url.replace(/^https?:\/\//, "");
   const width = opts?.width ?? 1200;
   const full = opts?.full ? "/full" : "";
-  const maxAge = opts?.maxAgeHours ?? 6; // refresh every 6h by default
-  const v = opts?.version ? `?v=${encodeURIComponent(String(opts.version))}` : "";
-  return `https://image.thum.io/get${full}/width/${width}/maxAge/${maxAge}/https://${clean}${v}`;
+  // If a screenshotVersion is provided, force a fresh render on every request
+  // by setting maxAge to 0. Otherwise use the default 6h cache window.
+  const maxAge = opts?.version != null ? 0 : opts?.maxAgeHours ?? 6;
+  return `https://image.thum.io/get${full}/width/${width}/maxAge/${maxAge}/noanimate/https://${clean}`;
 }
 
 export type Project = {

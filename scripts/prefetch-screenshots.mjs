@@ -89,23 +89,37 @@ async function main() {
   console.log(`[prefetch] Warming ${featured.length} featured project screenshots via thum.io…`);
 
   const width = 1280;
-  const maxAge = 6;
 
+  // Hit thum.io's documented /prefetch/ endpoint to warm the cache. The
+  // endpoint returns the text "Image is cached" once the screenshot is
+  // ready. We pass maxAge/0/ so the warmup forces a fresh render even if
+  // thum.io already has a cached version.
+  //
+  // We also include noanimate/ so thum.io returns the final PNG rather
+  // than the streaming/animated intermediate (recommended for batch jobs
+  // per the official docs).
   const tasks = featured.map(async (p) => {
     const clean = p.url.replace(/^https?:\/\//, "");
-    const url = `https://image.thum.io/get/width/${width}/maxAge/${maxAge}/https://${clean}`;
+    const url = `https://image.thum.io/get/prefetch/width/${width}/maxAge/0/noanimate/https://${clean}`;
     const t0 = Date.now();
     try {
       const res = await fetch(url, { method: "GET", redirect: "follow" });
-      // We don't need the body — thum.io starts rendering as soon as we hit it.
-      // Just confirm we got *some* response (200/3xx counts as "enqueued").
+      const body = await res.text().catch(() => "");
       const ms = Date.now() - t0;
       const ok = res.status >= 200 && res.status < 400;
-      console.log(`  ${ok ? "✓" : "✗"} ${p.id.padEnd(14)} ${p.url}  →  HTTP ${res.status} (${ms}ms)`);
+      // thum.io's prefetch endpoint returns the literal text "Image is cached"
+      // (or similar) when the warmup is queued/done. We treat any 2xx/3xx as
+      // a successful warmup since the exact body varies.
+      const looksCached = /cached|queued|rendering/i.test(body);
+      console.log(
+        `  ${ok ? "✓" : "✗"} ${p.id.padEnd(16)} ${p.url}  →  HTTP ${res.status} (${ms}ms)${
+          ok ? (looksCached ? "  [warmed]" : "  [pending]") : ""
+        }`
+      );
       return { id: p.id, ok, status: res.status, ms };
     } catch (err) {
       const ms = Date.now() - t0;
-      console.log(`  ✗ ${p.id.padEnd(14)} ${p.url}  →  ${err.message} (${ms}ms)`);
+      console.log(`  ✗ ${p.id.padEnd(16)} ${p.url}  →  ${err.message} (${ms}ms)`);
       return { id: p.id, ok: false, error: err.message, ms };
     }
   });
