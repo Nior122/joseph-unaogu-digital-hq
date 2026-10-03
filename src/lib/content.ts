@@ -259,6 +259,16 @@ export const projects: Project[] = [
     health: "ONLINE", lastChecked: "Recent",
   },
   {
+    id: "kirvon", name: "Kirvon Store", url: "https://kirvonstore.vercel.app/",
+    description: "A premium Nigerian gadget e-commerce experience — selling audio, wearables, and power gear with nationwide delivery, pay-on-delivery, and a 12-month warranty.",
+    category: "E-commerce", accent: "#ff5d6c", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["HTML/CSS", "JavaScript", "E-commerce UI", "Product Catalog"], role: "Designer & Developer",
+    problem: "A consumer gadget brand needed a storefront that felt as premium as the products, while supporting practical local commerce needs like pay-on-delivery, nationwide shipping, and warranty trust signals.",
+    approach: "Built a focused, brand-led shopping experience with strong product imagery, clear category browsing (audio, wearables, power & desk), spotlight sections, and trust messaging around delivery, warranty, and returns.",
+    lessons: "Local e-commerce succeeds when the international feel of a premium store is balanced with the practical trust signals buyers in that market actually look for — delivery, warranty, and payment flexibility.",
+    health: "ONLINE", lastChecked: "Recent",
+  },
+  {
     id: "supportiq", name: "SupportIQ", url: "https://supportiq-two.vercel.app/",
     description: "An AI-powered customer support platform concept helping businesses create intelligent support experiences using business-specific knowledge and AI-powered conversations.",
     category: "AI", accent: "#a974ff", status: "in-progress", availability: "Private Preview",
