@@ -95,12 +95,12 @@ async function main() {
   // ready. We pass maxAge/0/ so the warmup forces a fresh render even if
   // thum.io already has a cached version.
   //
-  // We also include noanimate/ so thum.io returns the final PNG rather
-  // than the streaming/animated intermediate (recommended for batch jobs
-  // per the official docs).
+  // We deliberately do NOT use noanimate/ — on slow / image-heavy sites
+  // it can block until timeout and return an error page. The streaming
+  // behavior is more reliable.
   const tasks = featured.map(async (p) => {
     const clean = p.url.replace(/^https?:\/\//, "");
-    const url = `https://image.thum.io/get/prefetch/width/${width}/maxAge/0/noanimate/https://${clean}`;
+    const url = `https://image.thum.io/get/prefetch/width/${width}/maxAge/0/https://${clean}`;
     const t0 = Date.now();
     try {
       const res = await fetch(url, { method: "GET", redirect: "follow" });

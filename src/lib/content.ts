@@ -142,11 +142,18 @@ export type ProjectHealth = "ONLINE" | "OFFLINE" | "AUTH_REQUIRED" | "ERROR" | "
 //   - `maxAge/0/` means "always re-render on every request" — bypasses
 //     the cache entirely.
 //
+// Streaming vs. blocking: thum.io's default behavior is to STREAM an
+// animated placeholder GIF immediately, then swap to the real screenshot
+// once the capture finishes. The `noanimate/` flag instead BLOCKS the
+// response until the final render is ready, which can fail/timeout on
+// slow or image-heavy sites (returning an error page that the browser
+// can't display as an image). We deliberately do NOT use `noanimate/` —
+// the streaming initial render is more reliable across all sites.
+//
 // Our strategy:
 //   - Default: `maxAge/6/` (auto-refresh every 6 hours).
 //   - When a project has `screenshotVersion` set: `maxAge/0/` (always
-//     fresh). This is what makes the "bump the version to refresh"
-//     workflow actually work.
+//     fresh, no cache).
 //   - The postbuild `npm run prefetch` script hits the thum.io
 //     `/prefetch/` endpoint to warm the cache for every featured project
 //     on every deploy, so the first visitor after deploy always sees a
@@ -163,7 +170,10 @@ export function screenshotUrl(
   // If a screenshotVersion is provided, force a fresh render on every request
   // by setting maxAge to 0. Otherwise use the default 6h cache window.
   const maxAge = opts?.version != null ? 0 : opts?.maxAgeHours ?? 6;
-  return `https://image.thum.io/get${full}/width/${width}/maxAge/${maxAge}/noanimate/https://${clean}`;
+  // IMPORTANT: no `noanimate/` — streaming the placeholder is more reliable
+  // across all sites (including slow/image-heavy ones like Adura Glow Oil
+  // and Velvet & Fade).
+  return `https://image.thum.io/get${full}/width/${width}/maxAge/${maxAge}/https://${clean}`;
 }
 
 export type Project = {

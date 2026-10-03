@@ -22,13 +22,13 @@ export function ProjectPreview({
   if (project.previewImage) sources.push(project.previewImage);
   sources.push(realShot);
 
-  const [idx, setIdx] = useState(0);
-  const current = sources[idx];
-  const isFallback = idx >= sources.length;
-
   // Private/auth-gated projects explicitly skip auto screenshots.
   const skipAuto = project.health === "AUTH_REQUIRED" && !project.previewImage;
 
+  // Always render the designed fallback as the BASE LAYER. The <img> overlays
+  // it. If the screenshot fails to load (thum.io error, slow render, blocked
+  // request), the fallback is still visible underneath — the user never sees
+  // a blank box or broken-image icon.
   return (
     <div
       className={cn(
@@ -50,22 +50,7 @@ export function ProjectPreview({
         {skipAuto ? (
           <DesignedFallback project={project} />
         ) : (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={current}
-              alt={`${project.name} — live website preview`}
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-              onError={() => {
-                if (idx < sources.length - 1) setIdx(idx + 1);
-                else if (idx === sources.length - 1) setIdx(sources.length); // go to fallback
-              }}
-            />
-            {/* dark gradient for legibility over the screenshot */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" />
-            {isFallback && <DesignedFallback project={project} />}
-          </>
+          <PreviewImageOverlay project={project} sources={sources} />
         )}
         {project.health === "AUTH_REQUIRED" && (
           <span className="absolute left-3 top-3 rounded-full border border-neon-violet/40 bg-ink-950/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-neon-violet">
@@ -74,6 +59,78 @@ export function ProjectPreview({
         )}
       </div>
     </div>
+  );
+}
+
+// New component: renders the designed fallback as a base layer, then overlays
+// each screenshot source in order. The first one that loads successfully
+// becomes visible; failed sources stay hidden. This means:
+//   - If ALL sources fail, the user still sees the designed fallback
+//     (never a broken-image icon or blank box).
+//   - If the manual PNG loads first, we show it.
+//   - If only the live screenshot loads, we show that.
+function PreviewImageOverlay({
+  project,
+  sources,
+}: {
+  project: Project;
+  sources: string[];
+}) {
+  const [loadedIdx, setLoadedIdx] = useState<number | null>(null);
+  const [erroredIdx, setErroredIdx] = useState<Set<number>>(new Set());
+
+  const visibleIdx =
+    loadedIdx !== null && !erroredIdx.has(loadedIdx) ? loadedIdx : null;
+
+  return (
+    <>
+      {/* Designed fallback is ALWAYS the base layer. */}
+      <DesignedFallback project={project} />
+
+      {/* Try each source. The first one that successfully loads becomes
+          visible (above the fallback). */}
+      {sources.map((src, i) => {
+        if (erroredIdx.has(i)) return null;
+        if (visibleIdx !== null && visibleIdx !== i) return null;
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={src}
+            src={src}
+            alt={`${project.name} — live website preview`}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+            onLoad={() => setLoadedIdx(i)}
+            onError={() => {
+              setErroredIdx((prev) => {
+                if (prev.has(i)) return prev;
+                const next = new Set(prev);
+                next.add(i);
+                return next;
+              });
+              // If the source that just errored was the one we thought was
+              // visible, try the next source.
+              if (loadedIdx === i) {
+                // Find next non-errored source after this one
+                for (let j = i + 1; j < sources.length; j++) {
+                  if (!erroredIdx.has(j)) {
+                    setLoadedIdx(j);
+                    return;
+                  }
+                }
+                setLoadedIdx(null);
+              }
+            }}
+          />
+        );
+      })}
+
+      {/* dark gradient for legibility over the screenshot */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+        style={{ opacity: visibleIdx === null ? 0 : 1 }}
+      />
+    </>
   );
 }
 
