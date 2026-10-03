@@ -182,7 +182,6 @@ export const projects: Project[] = [
     approach: "Built a fully interactive WebGL model with clickable regions, an informational HUD, and smooth camera transitions.",
     lessons: "Balancing high-poly model rendering with smooth interactive performance is key for educational 3D tools.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/human-brain.png",
     screenshotVersion: 1,
   },
   {
@@ -194,7 +193,6 @@ export const projects: Project[] = [
     approach: "Developed a 3D simulation with accurate orbital speeds, interactive camera controls, and dynamic lighting from the sun.",
     lessons: "Managing scene complexity and lighting in 3D space requires careful balancing between visual fidelity and performance.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/solar-system.png",
     screenshotVersion: 1,
   },
   {
@@ -206,7 +204,6 @@ export const projects: Project[] = [
     approach: "Built a fully interactive 3D WebGL simulation with dynamic depth mapping, lighting, and an atmospheric HUD.",
     lessons: "Performance optimization and state management in browser-based 3D requires careful management of draw calls.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/deep-ocean.png",
     screenshotVersion: 1,
   },
   {
@@ -218,7 +215,6 @@ export const projects: Project[] = [
     approach: "Designed a premium marketplace experience to streamline discovery, communication, and commissions between clients and fashion creators.",
     lessons: "In premium e-commerce, the visual interface and trust signals are just as important as the functional transaction flow.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/drape.png",
     screenshotVersion: 1,
   },
   {
@@ -230,7 +226,6 @@ export const projects: Project[] = [
     approach: "Built a comprehensive dashboard platform featuring student management, role-based access, and AI tools for generating educational content.",
     lessons: "Automating routine administrative tasks with AI can save hundreds of hours, making educational software highly impactful.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/eduflow.png",
     screenshotVersion: 1,
   },
   {
@@ -242,7 +237,6 @@ export const projects: Project[] = [
     approach: "Built a comprehensive platform featuring an AI-powered Kanban board for application tracking and smart candidate pipelines.",
     lessons: "Integrating AI directly into workflows (like email scanning and reply drafting) delivers the most immediate value to users.",
     health: "ONLINE", lastChecked: "Recent",
-    previewImage: "/projects/hireflow.png",
     screenshotVersion: 1,
   },
   {
