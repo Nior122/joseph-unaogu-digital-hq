@@ -182,6 +182,7 @@ export const projects: Project[] = [
     approach: "Built a fully interactive WebGL model with clickable regions, an informational HUD, and smooth camera transitions.",
     lessons: "Balancing high-poly model rendering with smooth interactive performance is key for educational 3D tools.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/human-brain.png",
     screenshotVersion: 1,
   },
   {
@@ -193,6 +194,7 @@ export const projects: Project[] = [
     approach: "Developed a 3D simulation with accurate orbital speeds, interactive camera controls, and dynamic lighting from the sun.",
     lessons: "Managing scene complexity and lighting in 3D space requires careful balancing between visual fidelity and performance.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/solar-system.png",
     screenshotVersion: 1,
   },
   {
