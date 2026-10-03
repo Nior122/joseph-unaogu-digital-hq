@@ -163,6 +163,13 @@ export type Project = {
   lastPreview?: string;
   previewImage?: string;
   repo?: string;
+  /**
+   * Optional version number for the live screenshot. Bump this when you want
+   * thum.io to refresh the cached screenshot immediately (independent of the
+   * `maxAge` auto-refresh window). The version is appended as a cache-bust
+   * query string so a fresh render is requested.
+   */
+  screenshotVersion?: number;
 };
 
 export const projects: Project[] = [
@@ -290,9 +297,9 @@ export const projects: Project[] = [
     role: "Builder & Designer",
     problem: "Small businesses struggle to give fast, consistent support without a full team.",
     approach: "A chatbot that reads uploaded business documents and answers from that context.",
-    lessons: "Retrieval quality matters more than the model alone — chunking and source handling decide real quality.",
-    health: "AUTH_REQUIRED", lastChecked: "Recent",
-    repo: undefined,
+    lessons: "Retrieval and source quality matter more than the model alone — chunking and source handling decide real quality.",
+    health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "scrolltek", name: "ScrollTek", url: "https://newsz-delta.vercel.app/",

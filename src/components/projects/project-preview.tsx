@@ -14,7 +14,10 @@ export function ProjectPreview({
   large?: boolean;
 }) {
   // Priority 1: real screenshot. Priority 2: manual upload. Else: designed fallback.
-  const realShot = screenshotUrl(project.url, { width: 1280 });
+  const realShot = screenshotUrl(project.url, {
+    width: 1280,
+    version: project.screenshotVersion,
+  });
   const sources: string[] = [];
   if (project.previewImage) sources.push(project.previewImage);
   sources.push(realShot);
