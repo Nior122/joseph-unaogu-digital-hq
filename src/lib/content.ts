@@ -309,6 +309,18 @@ export const projects: Project[] = [
     screenshotVersion: 1,
   },
   {
+    id: "master-prompter", name: "Master Prompter", url: "https://masterprompter.vercel.app/",
+    description: "A prompt-engineering workspace that turns a goal, role, and output type into a structured master prompt you can paste into any LLM — complete with a saveable prompt library.",
+    category: "AI", accent: "#3df0ff", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["Next.js", "TypeScript", "Prompt Engineering", "Local Storage", "Tailwind"],
+    role: "Builder & Designer",
+    problem: "Most people get mediocre AI output because they start with a vague request. Crafting a structured prompt from scratch is repetitive work that interrupts the actual task.",
+    approach: "Built a focused builder that takes goal + role + output type, applies structure and quality rules, and outputs a paste-ready prompt. Added a categorized, searchable prompt library with import/export so good prompts compound over time.",
+    lessons: "Good AI tools reduce the gap between intention and output. Constraining the inputs (role, output type) is what turns a generic chatbot interaction into a reliable workflow.",
+    health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
+  },
+  {
     id: "scrolltek", name: "ScrollTek", url: "https://newsz-delta.vercel.app/",
     description: "A digital publication platform covering technology, digital culture, AI tools, phone tips, lifestyle, productivity, and trending topics — a content-driven media experience.",
     category: "Media", accent: "#3df0ff", status: "live", availability: "Available for Customization",
