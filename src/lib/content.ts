@@ -131,12 +131,26 @@ export type ProjectHealth = "ONLINE" | "OFFLINE" | "AUTH_REQUIRED" | "ERROR" | "
 
 // Real website screenshot pipeline (priority 1). Uses a hosted headless-browser
 // rendering service so the thumbnail shows the ACTUAL site, not a placeholder.
-// Priority order: live screenshot -> manual upload (previewImage) -> designed fallback.
-export function screenshotUrl(url: string, opts?: { width?: number; full?: boolean }): string {
+//
+// Caching: thum.io caches each URL by default. We pass `maxAge/N/` (in hours)
+// so the screenshot auto-refreshes when the live site changes. Default is 6h,
+// which keeps previews close to live without burning the free-tier quota.
+//
+// A `v` (version) param is appended so we can force-bust thum.io's cache when
+// the project itself is updated in content.ts (set via `screenshotVersion`
+// below, or by calling `bustScreenshot()`).
+//
+// Priority order in the UI: live screenshot -> manual upload (previewImage) -> designed fallback.
+export function screenshotUrl(
+  url: string,
+  opts?: { width?: number; full?: boolean; maxAgeHours?: number; version?: number | string }
+): string {
   const clean = url.replace(/^https?:\/\//, "");
   const width = opts?.width ?? 1200;
   const full = opts?.full ? "/full" : "";
-  return `https://image.thum.io/get${full}/width/${width}/https://${clean}`;
+  const maxAge = opts?.maxAgeHours ?? 6; // refresh every 6h by default
+  const v = opts?.version ? `?v=${encodeURIComponent(String(opts.version))}` : "";
+  return `https://image.thum.io/get${full}/width/${width}/maxAge/${maxAge}/https://${clean}${v}`;
 }
 
 export type Project = {
