@@ -183,6 +183,7 @@ export const projects: Project[] = [
     lessons: "Balancing high-poly model rendering with smooth interactive performance is key for educational 3D tools.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/human-brain.png",
+    screenshotVersion: 1,
   },
   {
     id: "solar-system", name: "Solar System Explorer", url: "https://solar-system-explorer-silk.vercel.app/",
@@ -194,6 +195,7 @@ export const projects: Project[] = [
     lessons: "Managing scene complexity and lighting in 3D space requires careful balancing between visual fidelity and performance.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/solar-system.png",
+    screenshotVersion: 1,
   },
   {
     id: "deep-ocean", name: "Deep Ocean Observatory", url: "https://deep-ocean-observatory.vercel.app/",
@@ -205,6 +207,7 @@ export const projects: Project[] = [
     lessons: "Performance optimization and state management in browser-based 3D requires careful management of draw calls.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/deep-ocean.png",
+    screenshotVersion: 1,
   },
   {
     id: "drape", name: "Drape", url: "https://drape-fzs.pages.dev/",
@@ -216,6 +219,7 @@ export const projects: Project[] = [
     lessons: "In premium e-commerce, the visual interface and trust signals are just as important as the functional transaction flow.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/drape.png",
+    screenshotVersion: 1,
   },
   {
     id: "eduflow", name: "EduFlow", url: "https://eduflow-five-psi.vercel.app/",
@@ -227,6 +231,7 @@ export const projects: Project[] = [
     lessons: "Automating routine administrative tasks with AI can save hundreds of hours, making educational software highly impactful.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/eduflow.png",
+    screenshotVersion: 1,
   },
   {
     id: "hireflows", name: "HireFlow", url: "https://hireflows.vercel.app/",
@@ -238,6 +243,7 @@ export const projects: Project[] = [
     lessons: "Integrating AI directly into workflows (like email scanning and reply drafting) delivers the most immediate value to users.",
     health: "ONLINE", lastChecked: "Recent",
     previewImage: "/projects/hireflow.png",
+    screenshotVersion: 1,
   },
   {
     id: "velvet-fade", name: "Velvet & Fade", url: "https://velvet-and-fade-salon.vercel.app/",
@@ -248,6 +254,7 @@ export const projects: Project[] = [
     approach: "I built an elegant, brand-led site focused on atmosphere, services, and conversion.",
     lessons: "Strong visual hierarchy and restraint communicate premium far better than decoration.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "northgate", name: "Northgate Properties", url: "https://northgate-properties.vercel.app/",
@@ -258,6 +265,7 @@ export const projects: Project[] = [
     approach: "A clean, listing-first layout with strong imagery and clear calls to action.",
     lessons: "Information architecture matters more than color for real-estate usability.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "ember-spice", name: "Ember & Spice", url: "https://ember-and-spice-kohl.vercel.app/",
@@ -268,6 +276,7 @@ export const projects: Project[] = [
     approach: "A warm, imagery-led design that sells the feeling of the place.",
     lessons: "Mood and typography do most of the selling for food brands.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "adura-glow", name: "Adura Glow Oil", url: "https://adura-glow-oil-store.vercel.app/",
@@ -278,6 +287,7 @@ export const projects: Project[] = [
     approach: "A clean product experience with strong visuals and simple purchase flow.",
     lessons: "Reducing friction at every step increases perceived quality.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "kirvon", name: "Kirvon Store", url: "https://kirvonstore.vercel.app/",
@@ -288,6 +298,7 @@ export const projects: Project[] = [
     approach: "Built a focused, brand-led shopping experience with strong product imagery, clear category browsing (audio, wearables, power & desk), spotlight sections, and trust messaging around delivery, warranty, and returns.",
     lessons: "Local e-commerce succeeds when the international feel of a premium store is balanced with the practical trust signals buyers in that market actually look for — delivery, warranty, and payment flexibility.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "supportiq", name: "SupportIQ", url: "https://supportiq-two.vercel.app/",
@@ -310,6 +321,7 @@ export const projects: Project[] = [
     approach: "A media layout built around fast reading and clear topic structure.",
     lessons: "Content systems live or die by how easy it is to publish consistently.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
   {
     id: "aduke-admin", name: "Aduke Studio Admin Panel", url: "https://admin-dashboard-ashy-tau-44.vercel.app/",
@@ -320,6 +332,7 @@ export const projects: Project[] = [
     approach: "A dashboard focused on clarity, density, and quick actions.",
     lessons: "Admin tools succeed when the most common task is one click away.",
     health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
   },
 ];
 
