@@ -98,12 +98,26 @@ async function main() {
   // We deliberately do NOT use noanimate/ — on slow / image-heavy sites
   // it can block until timeout and return an error page. The streaming
   // behavior is more reliable.
+  //
+  // CRITICAL: each fetch has a hard 8s timeout via AbortController so
+  // the script can never hang longer than the Vercel build budget. If
+  // thum.io is slow or unreachable, we skip the warmup — the build
+  // continues regardless. The screenshot pipeline degrades gracefully
+  // (the live <img> on the page will still request a fresh render on
+  // the first visitor load).
+  const PER_REQUEST_TIMEOUT_MS = 8000;
   const tasks = featured.map(async (p) => {
     const clean = p.url.replace(/^https?:\/\//, "");
     const url = `https://image.thum.io/get/prefetch/width/${width}/maxAge/0/https://${clean}`;
     const t0 = Date.now();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), PER_REQUEST_TIMEOUT_MS);
     try {
-      const res = await fetch(url, { method: "GET", redirect: "follow" });
+      const res = await fetch(url, {
+        method: "GET",
+        redirect: "follow",
+        signal: controller.signal,
+      });
       const body = await res.text().catch(() => "");
       const ms = Date.now() - t0;
       const ok = res.status >= 200 && res.status < 400;
@@ -119,14 +133,32 @@ async function main() {
       return { id: p.id, ok, status: res.status, ms };
     } catch (err) {
       const ms = Date.now() - t0;
-      console.log(`  ✗ ${p.id.padEnd(16)} ${p.url}  →  ${err.message} (${ms}ms)`);
-      return { id: p.id, ok: false, error: err.message, ms };
+      const reason = err.name === "AbortError" ? "timeout" : err.message;
+      console.log(`  ✗ ${p.id.padEnd(16)} ${p.url}  →  ${reason} (${ms}ms)`);
+      return { id: p.id, ok: false, error: reason, ms };
+    } finally {
+      clearTimeout(timer);
     }
   });
 
-  const results = await Promise.all(tasks);
-  const ok = results.filter((r) => r.ok).length;
+  // Race the prefetch tasks against an overall 20s budget. If anything is
+  // still hanging after 20s we move on — never block the build.
+  const OVERALL_BUDGET_MS = 20000;
+  const overallTimer = new Promise((resolve) =>
+    setTimeout(() => resolve("timeout"), OVERALL_BUDGET_MS)
+  );
+  const settled = await Promise.race([
+    Promise.all(tasks),
+    overallTimer.then(() => null),
+  ]);
+  const results = settled || [];
+  const ok = results.filter((r) => r && r.ok).length;
   const failed = results.length - ok;
+  if (results.length < featured.length) {
+    console.log(
+      `[prefetch] Overall budget exceeded after ${OVERALL_BUDGET_MS}ms — ${results.length}/${featured.length} settled, ${featured.length - results.length} still in-flight.`
+    );
+  }
   console.log(`[prefetch] Done. ${ok} warmed, ${failed} failed.`);
 
   // We never fail the build over a screenshot miss — log and exit 0.

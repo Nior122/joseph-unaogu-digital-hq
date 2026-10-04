@@ -12,6 +12,9 @@
     "prefetch": "node scripts/prefetch-screenshots.mjs"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/sora": "^5.3.0",
     "clsx": "2.1.1",
     "framer-motion": "11.11.9",
     "lucide-react": "0.453.0",

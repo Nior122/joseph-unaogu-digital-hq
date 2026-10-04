@@ -1,5 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora, JetBrains_Mono } from "next/font/google";
+import "@fontsource/inter/100.css";
+import "@fontsource/inter/200.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/900.css";
+import "@fontsource/sora/500.css";
+import "@fontsource/sora/600.css";
+import "@fontsource/sora/700.css";
+import "@fontsource/jetbrains-mono/100.css";
+import "@fontsource/jetbrains-mono/200.css";
+import "@fontsource/jetbrains-mono/300.css";
+import "@fontsource/jetbrains-mono/400.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/jetbrains-mono/600.css";
+import "@fontsource/jetbrains-mono/700.css";
+import "@fontsource/jetbrains-mono/800.css";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -7,9 +26,11 @@ import { DigitalBackdrop } from "@/components/ui/background";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/lib/content";
 
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const display = Sora({ subsets: ["latin"], variable: "--font-display", display: "swap", weight: ["500", "600", "700"] });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+// Self-hosted font CSS variables. Previously we used next/font/google which made
+// Vercel builds fragile (every deploy needed to reach fonts.googleapis.com).
+// Now the fonts ship with the repo via @fontsource packages, so builds never
+// depend on a third-party CDN at build time.
+// (No JS-side variable needed — @fontsource ships pure CSS via the imports above.)
 
 const url = "https://josephunaogu.com";
 export const metadata: Metadata = {
@@ -32,7 +53,7 @@ export const viewport: Viewport = {
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-ink-950 font-sans text-paper antialiased">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
           <JsonLd />
