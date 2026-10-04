@@ -317,6 +317,7 @@ export const projects: Project[] = [
     approach: "Built a focused, brand-led shopping experience with strong product imagery, clear category browsing (audio, wearables, power & desk), spotlight sections, and trust messaging around delivery, warranty, and returns.",
     lessons: "Local e-commerce succeeds when the international feel of a premium store is balanced with the practical trust signals buyers in that market actually look for — delivery, warranty, and payment flexibility.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/kirvon.png",
     screenshotVersion: 1,
   },
   {
@@ -353,6 +354,7 @@ export const projects: Project[] = [
     approach: "Built an in-browser workflow engine with topological wave scheduling, branching, switches, loops, and AI Agent nodes — all simulated, all inspectable. Every payload is logged in a live console; workflows save to localStorage and share as a single encoded link.",
     lessons: "Removing the backend is what makes a builder actually usable for thinking. When the cost of trying an idea is zero, people explore further and ship more interesting workflows.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/flowsource.png",
     screenshotVersion: 1,
   },
   {
