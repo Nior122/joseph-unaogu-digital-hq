@@ -344,6 +344,18 @@ export const projects: Project[] = [
     screenshotVersion: 1,
   },
   {
+    id: "flowsource", name: "Flowsource", url: "https://flowsource.vercel.app/",
+    description: "A 100% client-side visual workflow builder — 144 node types, 90+ simulated integrations, and inspectable AI Agent runs on an infinite canvas, with no API keys and nothing leaving the browser.",
+    category: "AI", accent: "#b6ff3d", status: "live", availability: "Available for Customization",
+    featured: true, tech: ["TypeScript", "Topological Scheduling", "Canvas UI", "AI Agent Nodes", "localStorage"],
+    role: "Builder & Designer",
+    problem: "Real automation tools (n8n, Make) require accounts, API keys, and a backend — too much friction to think through a workflow. Most prototyping never happens.",
+    approach: "Built an in-browser workflow engine with topological wave scheduling, branching, switches, loops, and AI Agent nodes — all simulated, all inspectable. Every payload is logged in a live console; workflows save to localStorage and share as a single encoded link.",
+    lessons: "Removing the backend is what makes a builder actually usable for thinking. When the cost of trying an idea is zero, people explore further and ship more interesting workflows.",
+    health: "ONLINE", lastChecked: "Recent",
+    screenshotVersion: 1,
+  },
+  {
     id: "scrolltek", name: "ScrollTek", url: "https://newsz-delta.vercel.app/",
     description: "A digital publication platform covering technology, digital culture, AI tools, phone tips, lifestyle, productivity, and trending topics — a content-driven media experience.",
     category: "Media", accent: "#3df0ff", status: "live", availability: "Available for Customization",
