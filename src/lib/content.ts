@@ -273,6 +273,7 @@ export const projects: Project[] = [
     approach: "I built an elegant, brand-led site focused on atmosphere, services, and conversion.",
     lessons: "Strong visual hierarchy and restraint communicate premium far better than decoration.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/velvet-fade.png",
     screenshotVersion: 1,
   },
   {
@@ -306,6 +307,7 @@ export const projects: Project[] = [
     approach: "A clean product experience with strong visuals and simple purchase flow.",
     lessons: "Reducing friction at every step increases perceived quality.",
     health: "ONLINE", lastChecked: "Recent",
+    previewImage: "/projects/adura-glow.png",
     screenshotVersion: 1,
   },
   {
