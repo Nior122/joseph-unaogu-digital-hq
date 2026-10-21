@@ -1,51 +1,58 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { site } from "@/lib/content";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
-  { href: "/", label: "Home" }, { href: "/about", label: "About" }, { href: "/skills", label: "Skills" },
-  { href: "/projects", label: "Projects" }, { href: "/services", label: "Services" }, { href: "/writing", label: "Writing" },
-  { href: "/now", label: "Now" }, { href: "/contact", label: "Contact" },
+  { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/writing", label: "Writing" },
+  { href: "/contact", label: "Contact" },
 ];
+
 export function Navbar() {
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 24); onScroll(); window.addEventListener("scroll", onScroll, { passive: true }); return () => window.removeEventListener("scroll", onScroll); }, []);
-  useEffect(() => { setOpen(false); }, [pathname]);
-  // Close the mobile menu if the viewport grows past the lg breakpoint.
+  const [open, setOpen] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 1024) setOpen(false); };
+    const element = dialog.current;
+    if (!element) return;
+    if (open && !element.open) element.showModal();
+    if (!open && element.open) element.close();
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onResize = () => { if (window.innerWidth >= 1100) setOpen(false); };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => { document.body.style.overflow = previous; window.removeEventListener("resize", onResize); };
   }, [open]);
+  function closeMenu() { setOpen(false); }
+  const navigationLinks = links.map((link) => (
+    <Link key={link.href} href={link.href} className="nav-link" aria-current={pathname === link.href || pathname.startsWith(`${link.href}/`) ? "page" : undefined} onClick={closeMenu}>{link.label}</Link>
+  ));
+
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", (scrolled || open) ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent")}>
-      <nav className="container-px flex h-16 items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-neon-cyan/15 text-neon-cyan ring-1 ring-neon-cyan/30 transition group-hover:bg-neon-cyan/25"><span className="font-display text-lg font-bold">J</span></span>
-          <span className="font-display text-base font-semibold tracking-tight text-paper">Joseph Unaogu</span>
-        </Link>
-        <div className="hidden items-center gap-1 lg:flex">
-          {links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-full px-3.5 py-2 text-sm transition-colors", active ? "text-neon-cyan" : "text-paper-dim hover:text-paper")}>{l.label}</Link>); })}
-          <Link href="/contact" className="ml-2 rounded-full bg-neon-cyan px-4 py-2 text-sm font-medium text-ink-950 transition hover:brightness-110">Let&apos;s talk</Link>
-          <ThemeToggle className="ml-2" />
-        </div>
-        <div className="flex items-center gap-2 lg:hidden">
+    <header className="site-header no-print">
+      <div className="container header-inner">
+        <Link className="brand" href="/" aria-label="Chenar home"><span className="brand-symbol" aria-hidden="true">c</span>Chenar</Link>
+        <nav className="desktop-navigation" aria-label="Main navigation">{navigationLinks}</nav>
+        <div className="header-actions">
+          <Link href="/contact" className="button button-primary button-sm header-hire">Hire me <ArrowUpRight size={16} aria-hidden="true" /></Link>
           <ThemeToggle />
-          <button className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 text-paper" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu" aria-expanded={open} aria-controls="mobile-menu">{open ? <X size={18} /> : <Menu size={18} />}</button>
+          <button ref={trigger} type="button" className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" aria-haspopup="dialog" onClick={() => setOpen(true)}><Menu size={18} aria-hidden="true" />Menu</button>
         </div>
-      </nav>
-      {open && (<div id="mobile-menu" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-ink-950/95 backdrop-blur-xl lg:hidden"><div className="container-px grid gap-1 py-4">{links.map((l) => { const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href); return (<Link key={l.href} href={l.href} className={cn("rounded-lg px-4 py-3 text-sm transition-colors", active ? "bg-white/5 text-neon-cyan" : "text-paper-muted hover:bg-white/5 hover:text-paper")}>{l.label}</Link>); })}<Link href="/contact" className="mt-2 rounded-lg bg-neon-cyan px-4 py-3 text-center text-sm font-medium text-ink-950">Let&apos;s talk</Link><p className="break-all px-4 pt-3 text-xs text-paper-dim">{site.email}</p></div></div>)}
+      </div>
+      {/* Native modal dialogs provide focus containment, Escape handling and an inert background. */}
+      <dialog ref={dialog} id="mobile-menu" className="mobile-menu" aria-labelledby="mobile-menu-title" onCancel={closeMenu} onClose={() => { setOpen(false); trigger.current?.focus(); }} onClick={(event) => { if (event.target === event.currentTarget) closeMenu(); }}>
+        <div className="mobile-menu-heading"><h2 id="mobile-menu-title">Menu</h2><button type="button" className="menu-toggle" onClick={closeMenu}><X size={18} aria-hidden="true" />Close menu</button></div>
+        <nav className="mobile-navigation" aria-label="Mobile navigation">{navigationLinks}<Link href="/contact" className="button button-primary" onClick={closeMenu}>Hire me</Link></nav>
+      </dialog>
     </header>
   );
 }

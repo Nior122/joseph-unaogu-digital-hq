@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { projectCategoryFromParam } from "@/lib/content";
 export const metadata = { title: "Projects", description: "Selected personal digital products and experiments by Joseph Unaogu — websites, AI apps, dashboards, e-commerce, and media platforms." };
-export default function ProjectsPage({ searchParams }: { searchParams: { category?: string } }) {
-  const initial = projectCategoryFromParam(searchParams?.category ?? null);
+export default async function ProjectsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const query = await searchParams;
+  const initial = projectCategoryFromParam(query?.category ?? null);
   return (
     <>
       <PageHeader eyebrow="Projects" title={<>Real digital <span className="text-gradient">products & experiments.</span></>} description="A collection of personal digital products, experiments, and independently developed web experiences created to explore ideas, solve problems, and continuously improve my craft across software, AI, automation, design, and digital content." />

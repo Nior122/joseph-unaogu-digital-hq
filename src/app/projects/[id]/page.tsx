@@ -7,14 +7,15 @@ import { Button } from "@/components/ui/button";
 import { ProjectPreview } from "@/components/projects/project-preview";
 import { projects } from "@/lib/content";
 export function generateStaticParams() { return projects.map((p) => ({ id: p.id })); }
-export function generateMetadata({ params }: { params: { id: string } }) { const p = projects.find((x) => x.id === params.id); if (!p) return { title: "Project not found" }; return { title: p.name, description: p.description }; }
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; const p = projects.find((x) => x.id === id); if (!p) return { title: "Project not found" }; return { title: p.name, description: p.description }; }
 const blocks: { key: "problem" | "approach" | "lessons"; label: string; sub: string }[] = [
   { key: "problem", label: "The Problem", sub: "What was I actually trying to solve?" },
   { key: "approach", label: "The Approach", sub: "How I went about it." },
   { key: "lessons", label: "The Learning", sub: "What the build taught me." },
 ];
-export default function CaseStudyPage({ params }: { params: { id: string } }) {
-  const project = projects.find((p) => p.id === params.id);
+export default async function CaseStudyPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
   if (!project) notFound();
   return (
     <article className="relative pt-32 sm:pt-40">

@@ -7,14 +7,16 @@ import { writing } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function generateStaticParams() { return writing.map((w) => ({ id: w.id })); }
-export function generateMetadata({ params }: { params: { id: string } }) {
-  const w = writing.find((x) => x.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const w = writing.find((x) => x.id === id);
   if (!w) return { title: "Book not found" };
   return { title: w.title, description: w.summary || w.description };
 }
 
-export default function BookPage({ params }: { params: { id: string } }) {
-  const book = writing.find((w) => w.id === params.id);
+export default async function BookPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const book = writing.find((w) => w.id === id);
   if (!book) notFound();
   const accent = book.coverColor || "#3df0ff";
   const summaryParagraphs = (book.summary || book.description).split("\n\n").filter(Boolean);
