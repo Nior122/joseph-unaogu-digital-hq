@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { site } from "@/lib/content";
+import { site, navigation } from "@/lib/content";
 
 const links = [
-  ["/work", "Work"], ["/services", "Services"], ["/about", "About"],
-  ["/writing", "Writing"], ["/contact", "Contact"], ["/resume", "Resume"],
+  ...navigation.map(({ href, label }) => [href, label]), ["/resume", "Resume"],
   ["/now", "What I'm doing now"],
 ];
 export function Footer() {

@@ -6,13 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const links = [
-  { href: "/work", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/writing", label: "Writing" },
-  { href: "/contact", label: "Contact" },
-];
+import { navigation } from "@/lib/content";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -33,7 +27,7 @@ export function Navbar() {
     return () => { document.body.style.overflow = previous; window.removeEventListener("resize", onResize); };
   }, [open]);
   function closeMenu() { setOpen(false); }
-  const navigationLinks = links.map((link) => (
+  const navigationLinks = navigation.map((link) => (
     <Link key={link.href} href={link.href} className="nav-link" aria-current={pathname === link.href || pathname.startsWith(`${link.href}/`) ? "page" : undefined} onClick={closeMenu}>{link.label}</Link>
   ));
 
