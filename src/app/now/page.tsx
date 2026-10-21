@@ -1,10 +1,11 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusDot } from "@/components/ui/status-dot";
 import { nowFocus, currentlyExploring, buildingNow } from "@/lib/content";
 
-export const metadata = { title: "What I'm doing now | Chenar", description: "Joseph Unaogu's current focus, projects in progress, and topics he is learning about." };
+export const metadata = routeMetadata("now");
 export default function NowPage() {
   return <>
     <PageHeader eyebrow="Now" title="What I'm doing now" description="A snapshot of what I'm building and learning. This is where the work-in-progress notes live." />

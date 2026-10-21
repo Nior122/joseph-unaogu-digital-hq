@@ -1,10 +1,11 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { Button } from "@/components/ui/button";
 import { services, contentSkills } from "@/lib/content";
 
-export const metadata = { title: "YouTube and content support | Chenar", description: "YouTube scripts, Shorts, video editing, ideas, thumbnails, and content support from Joseph Unaogu." };
+export const metadata = routeMetadata("content");
 export default function ContentPage() {
   const service = services.find((item) => item.id === "youtube")!;
   return <>

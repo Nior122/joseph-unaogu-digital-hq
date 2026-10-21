@@ -1,10 +1,11 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { NeonOrbit } from "@/components/skills/neon-orbit";
 import { skillNodes, skillCategories, contentSkills } from "@/lib/content";
 
-export const metadata = { title: "Skills map | Joseph Unaogu | Chenar", description: "An optional visual skills map and a complete plain-text skills list, with honest descriptions and skill levels." };
+export const metadata = routeMetadata("skills");
 export default function SkillsPage() {
   return <>
     <PageHeader eyebrow="Optional extra" title="A closer look at my skills" description="Writing and content are my strongest areas. My technical skills are practical and still growing. Use the optional map or read the full list below." />

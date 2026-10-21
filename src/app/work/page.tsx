@@ -1,9 +1,10 @@
+import { routeMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/ui/page-header";
 import { ProjectCollection } from "@/components/projects/project-collection";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { projects, projectCategoryFromParam } from "@/lib/content";
 
-export const metadata = { title: "Projects | Chenar by Joseph Unaogu", description: "16 projects: online stores, business sites, AI tools, dashboards, and 3D learning experiences. Open any live demo." };
+export const metadata = routeMetadata("work");
 export default async function WorkPage({ searchParams }: { searchParams: Promise<{ type?: string; category?: string }> }) {
   const query = await searchParams;
   const initial = projectCategoryFromParam(query.type ?? query.category);

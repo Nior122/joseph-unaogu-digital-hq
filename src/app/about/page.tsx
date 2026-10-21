@@ -1,3 +1,4 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { aboutParagraphs, plainSkills, site } from "@/lib/content";
 
-export const metadata = { title: "About Joseph Unaogu | Chenar", description: "Joseph Unaogu studied Computer Science and builds websites and automation tools and writes eBooks and copy. Based in Nigeria, working worldwide." };
+export const metadata = routeMetadata("about");
 export default function AboutPage() {
   return <>
     <PageHeader eyebrow="About" title="About Joseph" description={aboutParagraphs[0]} />

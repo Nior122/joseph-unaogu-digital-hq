@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -11,7 +12,8 @@ export function generateStaticParams() { return writing.map((book) => ({ id: boo
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const book = writing.find((item) => item.id === id);
-  return { title: book?.title ?? "Writing not found", description: book?.description };
+  if (!book) notFound();
+  return pageMetadata(`${book.title.split(":")[0]} | Chenar`, book.description, `/writing/${book.id}`);
 }
 export default async function WritingDetailPage({ params }: Props) {
   const { id } = await params;

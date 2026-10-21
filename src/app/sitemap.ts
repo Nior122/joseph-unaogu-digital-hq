@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
-const base = "https://josephunaogu.com";
+import { projects, writing } from "@/lib/content";
+import { absoluteUrl, seoPages } from "@/lib/seo";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/skills", "/projects", "/services", "/writing", "/now", "/contact", "/resume"];
-  return routes.map((r) => ({ url: `${base}${r}`, lastModified: new Date(), changeFrequency: "weekly", priority: r === "" ? 1 : 0.7 }));
+  return [
+    ...Object.values(seoPages).map((page) => ({ url: absoluteUrl(page.path) })),
+    ...projects.map((project) => ({ url: absoluteUrl(`/work/${project.slug}`) })),
+    ...writing.map((piece) => ({ url: absoluteUrl(`/writing/${piece.id}`) })),
+  ];
 }

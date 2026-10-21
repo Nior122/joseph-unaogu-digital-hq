@@ -1,9 +1,10 @@
+import { routeMetadata } from "@/lib/seo";
 import { ArrowUpRight, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import ContactForm from "@/components/contact/contact-form";
 import { site, getProject, contactProjectTypes } from "@/lib/content";
 
-export const metadata = { title: "Contact Chenar | Hire Joseph Unaogu", description: "Send a short brief, or reach Joseph by email, WhatsApp, or LinkedIn." };
+export const metadata = routeMetadata("contact");
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ project?: string; service?: string }> }) {
   const query = await searchParams;
   const project = query.project ? getProject(query.project) : undefined;

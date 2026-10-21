@@ -1,9 +1,10 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { ProjectCollection } from "@/components/projects/project-collection";
 
-export const metadata = { title: "The Lab | Chenar", description: "Joseph Unaogu's projects and experiments. Explore the same project collection from the Work page." };
+export const metadata = routeMetadata("lab");
 export default function LabPage() {
   return <>
     <PageHeader eyebrow="The Lab" title="Projects and experiments" description="The project collection now lives on the Work page. You can still browse it here, including the learning concepts and work available for customization." />

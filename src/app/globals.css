@@ -4,18 +4,6 @@
 
 /* All site colors, spacing, radii and type sizes are defined here. */
 :root {
-  color-scheme: light;
-  --canvas-rgb: 247 249 245;
-  --surface-rgb: 255 255 255;
-  --soft-rgb: 237 242 233;
-  --text-rgb: 25 35 29;
-  --muted-rgb: 75 88 79;
-  --border-rgb: 123 138 126;
-  --accent-rgb: 37 88 55;
-  --on-accent-rgb: 255 255 255;
-  --accent-soft-rgb: 225 237 219;
-  --danger-rgb: 169 31 31;
-  --overlay-rgb: 8 18 12;
   --canvas: rgb(var(--canvas-rgb));
   --surface: rgb(var(--surface-rgb));
   --soft: rgb(var(--soft-rgb));
@@ -67,20 +55,6 @@
   --skill-automation: var(--accent);
   --skill-writing: var(--accent);
   --skill-creative: var(--accent);
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --canvas-rgb: 12 18 15;
-  --surface-rgb: 20 29 23;
-  --soft-rgb: 28 39 31;
-  --text-rgb: 240 245 236;
-  --muted-rgb: 190 204 190;
-  --border-rgb: 113 133 116;
-  --accent-rgb: 184 218 159;
-  --on-accent-rgb: 18 34 20;
-  --accent-soft-rgb: 36 55 35;
-  --danger-rgb: 255 166 156;
 }
 
 @layer base {

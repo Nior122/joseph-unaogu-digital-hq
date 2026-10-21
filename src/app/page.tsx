@@ -1,3 +1,4 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Globe2, Workflow } from "lucide-react";
 import { HeroSection } from "@/components/hero/hero-section";
@@ -8,6 +9,7 @@ import { Faq } from "@/components/sections/faq";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { mainServices, selectedProjects, projects, workSteps, homeCopy, faq } from "@/lib/content";
 
+export const metadata = routeMetadata("home");
 const icons = { web: Globe2, "ai-automation": Workflow, ebooks: BookOpen };
 export default function HomePage() {
   return (

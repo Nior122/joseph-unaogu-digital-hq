@@ -1,3 +1,4 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { mainServices, extraServices, services, getProject } from "@/lib/content";
 
-export const metadata = { title: "Services | Chenar by Joseph Unaogu", description: "Website development, AI automation, eBook writing, copywriting, cover design, and YouTube content support." };
+export const metadata = routeMetadata("services");
 export default function ServicesPage() {
   const copywriting = services.find((service) => service.id === "copywriting")!;
   return <>

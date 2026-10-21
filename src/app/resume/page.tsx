@@ -1,9 +1,10 @@
+import { routeMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { PrintButton } from "@/components/contact/print-button";
 import { site, aboutParagraphs, plainSkills, mainServices, extraServices, projects } from "@/lib/content";
 
-export const metadata = { title: "Joseph Unaogu — Resume | Chenar", description: "Joseph Unaogu's skills, education, services, and projects. View the resume or print and save it as a PDF." };
+export const metadata = routeMetadata("resume");
 export default function ResumePage() {
   return <>
     <PageHeader eyebrow="Resume" title={site.name} description={`${site.role}. ${site.location}.`} />

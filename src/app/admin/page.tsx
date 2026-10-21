@@ -1,8 +1,9 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 import { projects, writing } from "@/lib/content";
 
-export const metadata = { title: "Content reference | Chenar", robots: { index: false, follow: false } };
+export const metadata = { ...pageMetadata("Content reference | Chenar", "Read-only reference for updating the Chenar site content.", "/admin"), robots: { index: false, follow: false } };
 export default function AdminPage() {
   return <>
     <PageHeader eyebrow="Read-only reference" title="How to update the site" description="This is a content reference, not a signed-in dashboard. It does not collect credentials or provide editing access." />

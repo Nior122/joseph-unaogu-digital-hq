@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -13,7 +14,8 @@ export function generateStaticParams() { return projects.map((project) => ({ slu
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const project = getProject(slug);
-  return { title: project?.name ?? "Project not found", description: project?.oneLiner };
+  if (!project) notFound();
+  return pageMetadata(`${project.name} | Chenar`, project.oneLiner, `/work/${project.slug}`);
 }
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params;
