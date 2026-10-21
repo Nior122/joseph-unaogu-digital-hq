@@ -1,0 +1,64 @@
+name: Recover original writing covers
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/2d034660-joseph-unaogu-digital-hq
+    paths:
+      - scripts/recover-writing-covers.mjs
+      - .github/workflows/recover-writing-covers.yml
+
+permissions:
+  contents: write
+
+# The recovery and regular preview updater edit the same manifest.
+concurrency:
+  group: homepage-previews-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.22.3"
+          cache: npm
+      - run: npm ci
+      - name: Read the original Writing page in Chrome and save its actual images
+        run: node scripts/recover-writing-covers.mjs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Validate original content and recovered assets
+        run: npm test
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-writing-cover-recovery
+          path: |
+            docs/writing-cover-recovery.json
+            test-results/writing-cover-source-page.jpg
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit only recovered images and their source report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add src/lib/preview-manifest.json public/writing/covers docs/writing-cover-recovery.json
+          if git diff --cached --quiet; then
+            echo "No recovered asset changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: recover original covers from the old Writing page"
+          gh auth setup-git
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
