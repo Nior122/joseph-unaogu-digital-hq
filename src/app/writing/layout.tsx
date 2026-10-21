@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Writing & eBooks",
-  description: "Joseph Unaogu writes across fiction, nonfiction, AI guides, productivity, psychology, relationships, and personal development — eBooks, copywriting, and editorial content.",
+  title: "Writing & eBooks | Chenar",
+  description: "eBooks, copywriting samples, and the process behind each book, from outline to Amazon KDP launch.",
 };
-export default function WritingLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
-}
+export default function WritingLayout({ children }: { children: React.ReactNode }) { return children; }

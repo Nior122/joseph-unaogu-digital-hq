@@ -212,7 +212,7 @@
   .case-heading p { margin-top: var(--space-5); color: var(--muted); font-size: var(--text-lg); }
   .case-body { display: grid; gap: var(--space-7); padding-block: var(--space-7); }
   .case-body section > p, .case-body section > ul { margin-top: var(--space-4); color: var(--muted); }
-  .bullet-list { padding-left: 1.5rem; }
+  .bullet-list { padding-left: 1.5rem; list-style: disc; }
   .bullet-list li + li { margin-top: var(--space-2); }
   .tool-list { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0; list-style: none; }
   .tool-list li { padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
@@ -260,7 +260,7 @@
   .book-detail h1 { font-size: clamp(2rem, 4.5vw, 3.5rem); }
   .book-summary { margin-top: var(--space-7); }
   .book-summary h2 { margin-bottom: var(--space-5); }
-  .process-list { display: grid; gap: var(--space-5); padding-left: 1.5rem; }
+  .process-list { list-style: decimal; display: grid; gap: var(--space-5); padding-left: 1.5rem; }
   .process-list li { padding-left: var(--space-2); }
   .process-list strong { display: block; margin-bottom: var(--space-1); }
   .resume-sheet { padding: var(--space-6); }
@@ -327,7 +327,11 @@
   .contact-cta { padding-block: var(--space-6); }
   .skill-orbit { display: none; }
 }
+@media (max-width: 639px) {
+  .visual-map-section { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .visual-map-section { display: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .skill-orbit { display: none; }
 }

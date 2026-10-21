@@ -1,27 +1,17 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
-import { SectionHeader, Section } from "@/components/ui/section";
 import { NeonOrbit } from "@/components/skills/neon-orbit";
-import { Reveal } from "@/components/ui/reveal";
-import { contentSkills } from "@/lib/content";
-export const metadata = { title: "Skills", description: "An honest neon skill map of Joseph Unaogu — professional in writing and content, with practical, hands-on levels across software, AI, automation, web development, and content creation." };
+import { skillNodes, skillCategories, contentSkills } from "@/lib/content";
+
+export const metadata = { title: "Skills map | Joseph Unaogu | Chenar", description: "An optional visual skills map and a complete plain-text skills list, with honest descriptions and skill levels." };
 export default function SkillsPage() {
-  return (
-    <>
-      <PageHeader eyebrow="Skills System" title={<>Honest about where I am — <span className="text-gradient">and where I'm going.</span></>} description="I don't claim to be an expert in everything. Most technical areas are practical and developing. My writing and content work is where I operate with the most confidence." />
-      <Section className="pt-4"><div className="container-px"><NeonOrbit /></div></Section>
-      <Section className="border-t border-white/10 bg-ink-900/40"><div className="container-px">
-        <SectionHeader eyebrow="Content & Media" title={<>Skills beyond the <span className="text-gradient">orbit.</span></>} description="A growing area of the portfolio — YouTube, video, animation, and AI-assisted content creation, developed from idea to finished visual experience." />
-        <div className="mt-8 flex flex-wrap gap-3">
-          {contentSkills.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.03}>
-              <span className="group inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-paper-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-neon-amber/50 hover:text-paper" style={{ boxShadow: "0 0 0 0 rgba(255,177,61,0)" }}>
-                {s.label}
-              </span>
-            </Reveal>
-          ))}
-        </div>
-      </div></Section>
-      <Section className="border-t border-white/10 bg-ink-900/40"><div className="container-px"><SectionHeader eyebrow="Principle" title="Capable, not pretending to know it all" description="Real builders don't know everything before they start — they learn by solving problems. That's the approach behind every node above." /></div></Section>
-    </>
-  );
+  return <>
+    <PageHeader eyebrow="Optional extra" title="A closer look at my skills" description="Writing and content are my strongest areas. My technical skills are practical and still growing. Use the optional map or read the full list below." />
+    <div className="container page-content"><Link className="text-link mb-6" href="/about"><ArrowLeft size={17} aria-hidden="true" />Back to About Joseph</Link>
+      <section aria-labelledby="visual-map-title" className="visual-map-section"><h2 id="visual-map-title">The skills map</h2><NeonOrbit /></section>
+      <section id="skill-list" className="section" aria-labelledby="all-skills-title"><h2 id="all-skills-title" className="mb-8">All skills, in plain text</h2><div className="static-skills">{skillCategories.filter((category) => category.id !== "all").map((category) => <section className="surface" key={category.id} aria-labelledby={`category-${category.id}`}><h3 id={`category-${category.id}`}>{category.id === "ai" ? "AI (artificial intelligence)" : category.id === "creative" ? "Content and media" : category.label.toLowerCase().replace(/^./, (letter) => letter.toUpperCase())}</h3><ul className="bullet-list">{skillNodes.filter((skill) => skill.category === category.id).map((skill) => <li key={skill.id} id={`skill-${skill.id}`}><strong>{skill.label}</strong><p className="small-text text-muted">{skill.level}</p><p className="text-muted">{skill.blurb}</p></li>)}</ul></section>)}</div></section>
+      <section aria-labelledby="content-skills-title"><h2 id="content-skills-title" className="mb-6">Content and media tools</h2><ul className="tool-list">{contentSkills.map((skill) => <li key={skill.label}>{skill.label}</li>)}</ul></section>
+    </div>
+  </>;
 }

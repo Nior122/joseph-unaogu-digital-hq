@@ -1,24 +1,23 @@
 import Link from "next/link";
-import { Download, ArrowUpRight, Printer } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
-import { Button } from "@/components/ui/button";
 import { PrintButton } from "@/components/contact/print-button";
-import { Reveal } from "@/components/ui/reveal";
-import { site, skillNodes, services, projects, aboutParagraphs } from "@/lib/content";
-export const metadata = { title: "Resume", description: "Resume of Joseph Unaogu — digital builder with strengths in eBook writing, copywriting, and practical software, AI, and automation skills." };
+import { site, aboutParagraphs, plainSkills, mainServices, extraServices, projects } from "@/lib/content";
+
+export const metadata = { title: "Joseph Unaogu — Resume | Chenar", description: "Joseph Unaogu's skills, education, services, and projects. View the resume or print and save it as a PDF." };
 export default function ResumePage() {
-  return (<><PageHeader eyebrow="Resume" title={<>Joseph Unaogu — <span className="text-gradient">Digital Builder.</span></>} description="A clear, honest summary of skills, services, and projects. Use your browser's print (Ctrl/Cmd + P) to save as PDF — no invented dates or credentials." />
-      <section className="relative py-8"><div className="container-px max-w-3xl">
-        <div className="mb-8 flex flex-wrap gap-3"><Button href="/contact"><Download size={16} /> Download Resume</Button><PrintButton /></div>
-        <div className="surface space-y-8 p-8 sm:p-10">
-          <header className="border-b border-white/10 pb-6"><h2 className="font-display text-2xl font-semibold text-paper">{site.name}</h2><p className="mt-1 text-sm text-paper-muted">{site.role} · {site.location}</p><p className="mt-1 text-sm text-neon-cyan">{site.email}</p></header>
-          <section><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Summary</h3><p className="mt-3 text-sm leading-relaxed text-paper-muted">{aboutParagraphs[0]} {aboutParagraphs[2]}</p></section>
-          <section><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Education</h3><p className="mt-3 text-sm text-paper">Computer Science</p></section>
-          <section><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Skills</h3><div className="mt-3 space-y-2.5">{["writing","software","ai","automation","creative"].map((cat) => { const items = skillNodes.filter((s) => s.category === cat); return (<div key={cat} className="text-sm"><span className="text-paper capitalize">{cat}</span><p className="text-paper-muted">{items.map((i) => i.label).join(", ")}</p></div>); })}</div></section>
-          <section><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Services</h3><ul className="mt-3 space-y-1.5 text-sm text-paper-muted">{services.map((s) => (<li key={s.id}><span className="text-paper">{s.title}</span> — {s.summary}</li>))}</ul></section>
-          <section><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Projects & Experiments</h3><ul className="mt-3 space-y-2.5 text-sm">{projects.map((p) => (<li key={p.id}><span className="text-paper">{p.name}</span><span className="text-paper-dim"> ({p.availability})</span><p className="text-paper-muted">{p.description}</p></li>))}</ul></section>
-          <section className="border-t border-white/10 pt-6"><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-neon-cyan">Connect</h3><div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">{site.socials.map((s) => (<span key={s.label} className="text-paper-muted">{s.label}: <span className="text-paper-dim">{s.handle}</span></span>))}</div></section>
-        </div>
-        <p className="mt-6 text-xs text-paper-dim">This resume is generated from the same content source as the rest of the site, so it stays in sync as Joseph updates his work.</p>
-      </div></section></>);
+  return <>
+    <PageHeader eyebrow="Resume" title={site.name} description={`${site.role}. ${site.location}.`} />
+    <div className="container page-content">
+      <div className="button-row mb-8 no-print"><PrintButton /><Link href="/contact" className="text-link">Contact Joseph</Link></div>
+      <article className="surface resume-sheet reading">
+        <section aria-labelledby="resume-summary"><h2 id="resume-summary">Summary</h2><p className="text-muted mt-4">{aboutParagraphs[0]} My strongest areas are eBook writing, copywriting, and content.</p></section>
+        <section aria-labelledby="resume-education"><h2 id="resume-education">Education</h2><p className="mt-4">Computer Science</p></section>
+        <section aria-labelledby="resume-skills"><h2 id="resume-skills">Skills</h2><ul className="skill-list mt-4">{plainSkills.map((skill) => <li key={skill.title}><h3>{skill.title}</h3><p className="text-muted">{skill.body}</p></li>)}</ul></section>
+        <section aria-labelledby="resume-services"><h2 id="resume-services">Services</h2><ul className="bullet-list text-muted mt-4">{[...mainServices, ...extraServices].map((service) => <li key={service.id}><strong>{service.title}</strong> — {service.summary}</li>)}</ul></section>
+        <section className="resume-project-section" aria-labelledby="resume-projects"><h2 id="resume-projects">Projects</h2><ul className="resume-projects mt-4">{projects.map((project) => <li key={project.slug}><h3><Link className="text-link" href={`/work/${project.slug}`}>{project.name}</Link></h3><p className="small-text text-muted">{project.statusLabel}</p><p className="text-muted">{project.oneLiner}</p></li>)}</ul></section>
+        <section aria-labelledby="resume-contact"><h2 id="resume-contact">Contact</h2><div className="stack mt-4"><p><a href={`mailto:${site.email}`} className="text-link" style={{ overflowWrap: "anywhere" }}>{site.email}</a></p><p>WhatsApp: {site.whatsappLabel}</p><p><a href={site.linkedin} className="text-link">LinkedIn: Joseph Unaogu</a></p></div></section>
+      </article>
+      <p className="small-text text-muted mt-6 no-print">This resume reads from the same content source as the rest of the site. Use Print / Save as PDF to download a copy.</p>
+    </div>
+  </>;
 }
