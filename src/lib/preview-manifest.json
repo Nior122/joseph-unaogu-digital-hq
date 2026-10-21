@@ -2,31 +2,31 @@
   "version": 1,
   "projects": {
     "aduke-admin": {
-      "src": "/projects/previews/aduke-admin-21d640f2b31e.webp",
+      "src": "/projects/previews/aduke-admin-790fab3eaa33.webp",
       "sourceUrl": "https://admin-dashboard-ashy-tau-44.vercel.app/",
-      "sha256": "21d640f2b31e5e4a82dab9cc33e0e7e183989c94683d9a3be3f014034788fca8",
+      "sha256": "790fab3eaa335ee58324623946bcecb4c20f859dcb4d5467b9989fadb90dea46",
       "width": 1280,
       "height": 800,
-      "bytes": 50282,
-      "capturedAt": "2026-10-21T16:06:01.319Z"
+      "bytes": 50696,
+      "capturedAt": "2026-10-21T16:14:28.765Z"
     },
     "adura-glow": {
-      "src": "/projects/previews/adura-glow-737d7e0aa956.webp",
+      "src": "/projects/previews/adura-glow-77d709484e27.webp",
       "sourceUrl": "https://adura-glow-oil-store.vercel.app/",
-      "sha256": "737d7e0aa956fc4097132baea5d192c9a4c8a8fdca8960a9adb0ba8d1ab53a92",
+      "sha256": "77d709484e2777edfd6991e9c010fcb7a422b06371cfd552de95375310a43e86",
       "width": 1280,
       "height": 800,
-      "bytes": 25746,
-      "capturedAt": "2026-10-21T16:05:48.243Z"
+      "bytes": 25726,
+      "capturedAt": "2026-10-21T16:14:14.981Z"
     },
     "deep-ocean": {
-      "src": "/projects/previews/deep-ocean-cefd86b3c10a.webp",
+      "src": "/projects/previews/deep-ocean-84084f7e8908.webp",
       "sourceUrl": "https://deep-ocean-observatory.vercel.app/",
-      "sha256": "cefd86b3c10aabcba16953e581dda5991f948464449983b24e2019d18c444546",
+      "sha256": "84084f7e8908e934762b264dbbed2f3a786b31fc2e1f5e0d44a307475e17c486",
       "width": 1280,
       "height": 800,
-      "bytes": 34740,
-      "capturedAt": "2026-10-21T16:05:24.390Z"
+      "bytes": 34554,
+      "capturedAt": "2026-10-21T16:13:55.388Z"
     },
     "drape": {
       "src": "/projects/previews/drape-494266a5e489.webp",
@@ -38,31 +38,31 @@
       "capturedAt": "2026-10-21T16:05:28.293Z"
     },
     "eduflow": {
-      "src": "/projects/previews/eduflow-2973de620b75.webp",
+      "src": "/projects/previews/eduflow-e95ea2f58689.webp",
       "sourceUrl": "https://eduflow-five-psi.vercel.app/",
-      "sha256": "2973de620b7552df14d221f5afe07c0a454f22801da38436de69399f006dd260",
+      "sha256": "e95ea2f586897fdf325bf3d70ec4b02012737e16515bf724e430733fab8050b2",
       "width": 1280,
       "height": 800,
-      "bytes": 65398,
-      "capturedAt": "2026-10-21T16:05:33.731Z"
+      "bytes": 65400,
+      "capturedAt": "2026-10-21T16:14:07.298Z"
     },
     "ember-spice": {
-      "src": "/projects/previews/ember-spice-9d52fa695c9e.webp",
+      "src": "/projects/previews/ember-spice-feb5569339ce.webp",
       "sourceUrl": "https://ember-and-spice-kohl.vercel.app/",
-      "sha256": "9d52fa695c9e2ada1fdd57f54e441ebf7b919212584a4632c78d9f5ffeae7a10",
+      "sha256": "feb5569339cefdcbbc030a7ba1d9e37d96925ea97352239738184ee37161bbf7",
       "width": 1280,
       "height": 800,
-      "bytes": 80610,
-      "capturedAt": "2026-10-21T16:05:47.869Z"
+      "bytes": 82266,
+      "capturedAt": "2026-10-21T16:14:14.196Z"
     },
     "flowsource": {
-      "src": "/projects/previews/flowsource-4f90f1b076d0.webp",
+      "src": "/projects/previews/flowsource-8b19615418fa.webp",
       "sourceUrl": "https://flowsource.vercel.app/",
-      "sha256": "4f90f1b076d0182d181d5bd8afc1e9b2223d0d8bbe7847789d7a5c7a75dd6455",
+      "sha256": "8b19615418fabd00dd0376427aa386b2337e9e13f784cb6a8810fa72c8a5e04d",
       "width": 1280,
       "height": 800,
-      "bytes": 40266,
-      "capturedAt": "2026-10-21T16:05:55.809Z"
+      "bytes": 39734,
+      "capturedAt": "2026-10-21T16:14:27.106Z"
     },
     "hireflows": {
       "src": "/projects/previews/hireflows-7f740ec8b7ca.webp",
@@ -74,22 +74,22 @@
       "capturedAt": "2026-10-21T16:05:38.936Z"
     },
     "human-brain": {
-      "src": "/projects/previews/human-brain-6509c2079cbc.webp",
+      "src": "/projects/previews/human-brain-fb13c5bb7b50.webp",
       "sourceUrl": "https://3d-human-brain-explorer.vercel.app/",
-      "sha256": "6509c2079cbc1e32a1252f39301a6f4dbf0660731c119564766ae8b32b1eedd8",
+      "sha256": "fb13c5bb7b505c4f50f746b6319ce9e7b8841386e117605a624ca25faf56afa1",
       "width": 1280,
       "height": 800,
-      "bytes": 29440,
-      "capturedAt": "2026-10-21T16:05:22.423Z"
+      "bytes": 29344,
+      "capturedAt": "2026-10-21T16:13:53.867Z"
     },
     "kirvon": {
-      "src": "/projects/previews/kirvon-d6208ce7bf8f.webp",
+      "src": "/projects/previews/kirvon-cb0d9115f0ab.webp",
       "sourceUrl": "https://kirvonstore.vercel.app/",
-      "sha256": "d6208ce7bf8f68f227dd97d296553080a131e6efaf39bfc425f24241ce9d53c2",
+      "sha256": "cb0d9115f0abd0c9efa9d78bbe8d087babf6727d020b3f7ae034b38ef43aaa73",
       "width": 1280,
       "height": 800,
-      "bytes": 59946,
-      "capturedAt": "2026-10-21T16:05:49.642Z"
+      "bytes": 59952,
+      "capturedAt": "2026-10-21T16:14:20.444Z"
     },
     "master-prompter": {
       "src": "/projects/previews/master-prompter-21a2f7f6856a.webp",
@@ -101,31 +101,40 @@
       "capturedAt": "2026-10-21T16:05:53.700Z"
     },
     "northgate": {
-      "src": "/projects/previews/northgate-285ae3640dc8.webp",
+      "src": "/projects/previews/northgate-4485971baeab.webp",
       "sourceUrl": "https://northgate-properties.vercel.app/",
-      "sha256": "285ae3640dc87d4fd2420c0c87d392a38e8bf2eb8e6145c06dbe3c3753f6305a",
+      "sha256": "4485971baeab569919261f8591c036b97c588b0cf4cbf0fde918633bb55f79ed",
       "width": 1280,
       "height": 800,
-      "bytes": 61050,
-      "capturedAt": "2026-10-21T16:05:42.627Z"
+      "bytes": 60980,
+      "capturedAt": "2026-10-21T16:14:13.610Z"
+    },
+    "solar-system": {
+      "src": "/projects/previews/solar-system-41d9d71dd7cf.webp",
+      "sourceUrl": "https://solar-system-explorer-silk.vercel.app/",
+      "sha256": "41d9d71dd7cfedf530a62f42611d29acfdbad22ff3b07426ffb797f95c5d1346",
+      "width": 1280,
+      "height": 800,
+      "bytes": 26952,
+      "capturedAt": "2026-10-21T16:13:48.615Z"
     },
     "supportiq": {
-      "src": "/projects/previews/supportiq-ff117418a1ee.webp",
+      "src": "/projects/previews/supportiq-0b2ded049866.webp",
       "sourceUrl": "https://supportiq-two.vercel.app/",
-      "sha256": "ff117418a1eeeb5c7a5c2e1ff247aef8f54744dbd57993269e94f6d00bf5f4c5",
+      "sha256": "0b2ded04986601597d622ec0e8a06ff5a206e5b070e43912f0219423ed289e46",
       "width": 1280,
       "height": 800,
-      "bytes": 31708,
-      "capturedAt": "2026-10-21T16:05:57.803Z"
+      "bytes": 32882,
+      "capturedAt": "2026-10-21T16:14:23.244Z"
     },
     "velvet-fade": {
-      "src": "/projects/previews/velvet-fade-4d7a7e61c9ee.webp",
+      "src": "/projects/previews/velvet-fade-1424ea0bbdb2.webp",
       "sourceUrl": "https://velvet-and-fade-salon.vercel.app/",
-      "sha256": "4d7a7e61c9ee630673c6bcefb8b9f8f4659cf6c57a6acf3b250796e00db350ef",
+      "sha256": "1424ea0bbdb2c2963df718a52c4b43a9107c78f5790ae95b7186a0bddf649440",
       "width": 1280,
       "height": 800,
-      "bytes": 54590,
-      "capturedAt": "2026-10-21T16:05:41.336Z"
+      "bytes": 52886,
+      "capturedAt": "2026-10-21T16:14:07.446Z"
     }
   },
   "writing": {
@@ -138,5 +147,81 @@
       "bytes": 707212,
       "capturedAt": "2026-10-21T16:06:01.576Z"
     }
+  },
+  "lastRefresh": {
+    "checkedAt": "2026-10-21T16:14:29.052Z",
+    "successful": 16,
+    "failures": [
+      {
+        "kind": "project",
+        "id": "scrolltek",
+        "sourceUrl": "https://newsz-delta.vercel.app/",
+        "status": "failed",
+        "reason": "Homepage returned HTTP 404."
+      },
+      {
+        "kind": "writing",
+        "id": "productivity-busy-moms",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-a627c161-6b67-4b6d-a6d0-c9dfea2b9be5.png",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "ai-tools-vas",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-b2bb80a8-51e3-4ae6-a589-58947759ffa8.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "ai-freelancers",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-28987222-0532-4b14-8b9b-3519d09ec73c.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "the-trust-factor",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-9ccbd65a-6d96-4825-8396-1f13f69c2dfb.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "dark-psychology",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-5080ebbf-88bc-43ba-9a6d-7e3cfdfca445.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "boundary-mastery",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-244c6ae9-3f0d-48cf-a58f-d2b880c044fb.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "male-female-dynamic",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-a3461d4f-8a59-4871-a1c6-13c506783cf4.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "shadows-of-tomorrow",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-88da20e4-a052-42bd-bf58-96f106089675.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      },
+      {
+        "kind": "writing",
+        "id": "the-last-archive",
+        "sourceUrl": "https://cdn.phototourl.com/free/2026-07-20-d4aba4f2-93c8-45f4-8a5d-53f710f069f5.jpg",
+        "status": "failed",
+        "reason": "Original cover returned HTTP 403."
+      }
+    ]
   }
 }
