@@ -11,7 +11,7 @@ Joseph's follow-up request is to capture the live website homepages and refresh 
 - Rejects hosting errors, blank captures, access checkpoints, and login-only pages rather than presenting them as project previews. It does not sign in or bypass access controls.
 - Retains the last valid asset when a new capture/download fails. All six original screenshots remain untouched and available as fallbacks.
 - Gives each asset a content-hashed filename so a changed homepage is not stuck behind an old browser or Next.js image cache.
-- Records source URL, SHA-256, dimensions, byte size, and capture time in `src/lib/preview-manifest.json`. Only an entry matching the current source URL is used.
+- Records source URL, SHA-256, dimensions, byte size, capture time, and refresh failures in `src/lib/preview-manifest.json`. Only an entry matching the current source URL is used.
 - Deletes superseded generated files from the two generated folders, never the original screenshots.
 
 The website serves saved local files. Visitors do not wait for a screenshot service. If Next.js image optimization fails, project images retry the raw local file, then the original screenshot where one exists, and finally a labeled text fallback. Book covers try the local copy, then the unchanged original URL, then a text fallback.
@@ -29,6 +29,42 @@ Workflow: `.github/workflows/refresh-previews.yml` (**Refresh homepage previews*
 - A JSON capture report is uploaded even if a capture fails. The job checks all content/asset integrity and unit tests before committing files. If every source fails, it fails visibly instead of reporting success.
 
 Saved image changes are normal repository commits. A connected Git deployment can rebuild from those commits; no claim is made that the public production site has already deployed this working branch.
+
+## Verified capture result — 21 October 2026
+
+[The completed GitHub capture run](https://github.com/Nior122/joseph-unaogu-digital-hq/actions/runs/39632719182) saved **15 of the 16 public project homepages** and **one original cover**. The refreshed project images are served on Home, Work, Lab, and the corresponding case-study pages. Each capture is 1280×800 and below 150 KB. All six original screenshots remain unchanged.
+
+The loading-screen capture found during inspection was removed. The updated capture waits for large loading overlays to disappear; the saved Solar System preview now shows the rendered planets, not its progress screen.
+
+Sources still needing attention:
+
+- **ScrollTek:** `https://newsz-delta.vercel.app/` returned **HTTP 404**. No screenshot of that error page is used. A working demo URL or an existing real screenshot is needed.
+- **Nine original cover files returned HTTP 403** from the hosted runner: `productivity-busy-moms`, `ai-tools-vas`, `ai-freelancers`, `the-trust-factor`, `dark-psychology`, `boundary-mastery`, `male-female-dynamic`, `shadows-of-tomorrow`, and `the-last-archive`. Their records and original URLs are retained; the UI can still try the original source, but the updater cannot cache denied files. Upload the original covers or supply accessible URLs to repair these sources. No credentials, access-control bypass, or invented replacement covers are used.
+- **Copywriting Portfolio:** its original cover was successfully saved byte-for-byte and is now served locally.
+
+`preview-manifest.json` includes the latest attempt time and per-source failure reasons. GitHub also surfaces capture failures as job warnings, so partial failures are visible without deleting successful captures.
+
+### Verification after the image update
+
+- Lint, type/build checks, content preservation, and all **16 unit tests** passed.
+- Browser checks passed for **37 routes**, **99 internal link/anchor targets**, and **17 redirects**.
+- All **15 available project previews actually decoded in Chromium**, not merely returned HTTP 200. The cached cover also decoded successfully.
+- Explicit tests passed for optimizer failure → raw local file → original screenshot → labeled fallback, plus cached/remote cover failure. The cover component also detects images that failed before React hydration attached `onError`.
+- **35 axe scans: zero violations**. Themes, mobile navigation, form behavior, reflow, reduced motion, and resume printing still passed.
+
+Actual mobile Lighthouse 13.5.0 results on the updated production build:
+
+| Route          | Performance | Accessibility | Best Practices | SEO |
+| -------------- | ----------: | ------------: | -------------: | --: |
+| `/`            |          94 |           100 |            100 | 100 |
+| `/work`        |          85 |           100 |            100 | 100 |
+| `/work/kirvon` |          97 |           100 |            100 | 100 |
+| `/services`    |          98 |           100 |            100 | 100 |
+| `/contact`     |          97 |           100 |            100 | 100 |
+
+All requested score thresholds still pass. These lab measurements include the real project images and are not the earlier six-image-only scores. Raw browser/Lighthouse outputs remain in ignored `test-results/`.
+
+The initial captures have already run on the Arena branch. **The weekly cron is configured but does not become active until this workflow is merged into the default branch.** That merge and a public production deployment have not been performed. The target branch must allow the workflow's asset commit; branch protection is never bypassed.
 
 ## Run it yourself
 

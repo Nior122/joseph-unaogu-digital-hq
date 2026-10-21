@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BookOpen } from "lucide-react";
 
 type CoverProps = {
@@ -20,16 +20,31 @@ function CoverImage({
   eager: boolean;
 }) {
   const [sourceIndex, setSourceIndex] = useState(0);
+  const imageRef = useRef<HTMLImageElement>(null);
   const source = sources[sourceIndex];
+  // A cached/remote image can fail before hydration attaches onError. Handle that
+  // already-finished failure too, without advancing twice when both handlers run.
+  useEffect(() => {
+    const image = imageRef.current;
+    if (source && image?.complete && image.naturalWidth === 0)
+      setSourceIndex((current) =>
+        current === sourceIndex ? current + 1 : current,
+      );
+  }, [source, sourceIndex]);
   return source ? (
     <img
+      ref={imageRef}
       src={source}
       alt={`Cover of ${title}`}
       width={400}
       height={600}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
-      onError={() => setSourceIndex((current) => current + 1)}
+      onError={() =>
+        setSourceIndex((current) =>
+          current === sourceIndex ? current + 1 : current,
+        )
+      }
     />
   ) : (
     <div className="preview-unavailable">

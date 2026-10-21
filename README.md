@@ -90,7 +90,7 @@ npm run test:lighthouse
 
 Both server-based scripts default to `http://127.0.0.1:3000`. Set `SITE_TEST_URL` to test another origin. If you changed the canonical origin, export the same `NEXT_PUBLIC_SITE_URL` when running the browser checks; these standalone Node scripts do not automatically load `.env.local`.
 
-The browser script checks all 37 public content routes, 99 internal link/anchor targets, redirects, original assets, head metadata, sitemap, robots, API responses, themes, keyboard controls, form errors and draft handling, responsive layouts, reduced motion, and resume printing. It runs axe in both themes and in additional interactive states. External requests are deliberately blocked; saved local covers work without reaching the CDN, and missing local/remote sources use the cover fallback. This test does not certify ongoing external CDN availability.
+The browser script checks all 37 public content routes, 99 internal link/anchor targets, redirects, saved images, head metadata, sitemap, robots, API responses, themes, keyboard controls, form errors and draft handling, responsive layouts, reduced motion, and resume printing. It verifies that every available project image actually decodes, tests image-failure fallbacks, and runs axe in both themes and in additional interactive states. External requests are deliberately blocked; saved local covers work without reaching the CDN, and missing local/remote sources use the cover fallback. This test does not certify ongoing external CDN availability.
 
 The Lighthouse script measures five pages against a **production server** with simulated mobile throttling. It requires Performance ≥85 and Accessibility, Best Practices, and SEO ≥95 on every measured page.
 
@@ -102,7 +102,7 @@ Reports, screenshots, and the print PDF are written to the ignored `test-results
 
 - [Route-by-route implementation and measured verification report](docs/restructure-report.md)
 - [Contact delivery and provider setup decision](docs/contact-delivery.md)
-- [Scheduled captures and cache refresh](docs/preview-updates.md)
+- [Current capture results, schedule, and cache refresh](docs/preview-updates.md)
 - [Existing-image policy and original screenshots](docs/existing-images.md)
 - [Original audit and implementation plan](docs/restructure-audit.md)
 - [Supplied content rewrite](docs/content-rewrite.md)

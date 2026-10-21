@@ -36,6 +36,9 @@ const report = {
   responsive: [],
   api: [],
   images: [],
+  covers: [],
+  imageRendering: [],
+  imageFallbacks: [],
   internalLinks: [],
   javascriptErrors: [],
 };
@@ -130,6 +133,17 @@ for (const project of content.projects.filter((item) => item.image.src)) {
   assert.equal(response.status, 200, `${project.image.src} must not redirect`);
   report.images.push(project.image.src);
 }
+for (const book of content.writing) {
+  const source = content.writingCoverSource(book);
+  if (!source) continue;
+  const response = await fetch(new URL(source, base));
+  assert.equal(response.status, 200, `Cached cover: ${book.id}`);
+  assert.ok(
+    (await sharp(Buffer.from(await response.arrayBuffer())).metadata()).width >
+      0,
+  );
+  report.covers.push(source);
+}
 for (const route of [
   "/not-a-real-page",
   "/work/not-a-real-project",
@@ -212,7 +226,7 @@ try {
       viewport: { width: 1280, height: 900 },
       colorScheme: theme,
     });
-    // Original writing-cover hosts are outside this sandbox's allowlist. Test their visible failure fallback.
+    // External cover hosts are outside the allowlist. Saved local images must work without them.
     await context.route("**/*", (route) =>
       new URL(route.request().url()).origin === origin
         ? route.continue()
@@ -285,6 +299,133 @@ try {
   );
   const page = await context.newPage();
   page.on("pageerror", (error) => report.javascriptErrors.push(error.message));
+  // Real browser decoding, not just successful HTTP responses, for every available preview.
+  for (const project of content.projects.filter(
+    (project) => project.image.src,
+  )) {
+    await page.goto(new URL(`/work/${project.slug}`, base).href, {
+      waitUntil: "networkidle",
+    });
+    await page.waitForFunction(() => {
+      const image = document.querySelector(".project-visual-large img");
+      return (
+        image instanceof HTMLImageElement &&
+        image.complete &&
+        image.naturalWidth > 0
+      );
+    });
+    report.imageRendering.push({ project: project.slug, loaded: true });
+  }
+  const cachedBooks = content.writing.filter((book) =>
+    content.writingCoverSource(book),
+  );
+  if (cachedBooks.length) {
+    await page.goto(new URL("/writing", base).href, {
+      waitUntil: "networkidle",
+    });
+    for (const book of cachedBooks) {
+      const image = page.getByRole("img", {
+        name: `Cover of ${book.title}`,
+        exact: true,
+      });
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate((image) => image.decode());
+      assert.ok(
+        await image.evaluate(
+          (image) =>
+            image instanceof HTMLImageElement && image.naturalWidth > 0,
+        ),
+      );
+    }
+  }
+  const kirvon = content.projects.find((project) => project.slug === "kirvon");
+  await page.route("**/_next/image?**", (route) => route.abort());
+  await page.goto(new URL("/work/kirvon", base).href, {
+    waitUntil: "networkidle",
+  });
+  await page.waitForFunction(() => {
+    const image = document.querySelector(".project-visual-large img");
+    return (
+      image instanceof HTMLImageElement &&
+      image.complete &&
+      image.naturalWidth > 0 &&
+      !image.src.includes("/_next/image")
+    );
+  });
+  assert.equal(
+    new URL(
+      await page.locator(".project-visual-large img").getAttribute("src"),
+      base,
+    ).pathname,
+    new URL(kirvon.image.src, base).pathname,
+  );
+  report.imageFallbacks.push("failed optimizer retries the raw local image");
+  if (kirvon.image.fallbackSrc) {
+    await page.route(new URL(kirvon.image.src, base).href, (route) =>
+      route.abort(),
+    );
+    await page.reload({ waitUntil: "networkidle" });
+    await page.waitForFunction((expected) => {
+      const image = document.querySelector(".project-visual-large img");
+      return (
+        image instanceof HTMLImageElement &&
+        new URL(image.src, location.href).pathname === expected &&
+        image.complete &&
+        image.naturalWidth > 0
+      );
+    }, kirvon.image.fallbackSrc);
+    report.imageFallbacks.push(
+      "missing fresh capture retries the preserved original screenshot",
+    );
+    await page.unroute(new URL(kirvon.image.src, base).href);
+  }
+  await page.route("**/projects/**", (route) => route.abort());
+  await page.reload({ waitUntil: "networkidle" });
+  await page
+    .getByText("Homepage preview unavailable for Kirvon Store.", {
+      exact: true,
+    })
+    .waitFor();
+  const unavailableAxe = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .analyze();
+  report.axe.push({
+    route: "project image failure fallback",
+    theme: "light",
+    violations: unavailableAxe.violations.map(({ id, impact }) => ({
+      id,
+      impact,
+    })),
+  });
+  report.imageFallbacks.push(
+    "failed local sources show a labeled fallback without an image retry loop",
+  );
+  await page.unroute("**/projects/**");
+  await page.unroute("**/_next/image?**");
+  if (cachedBooks.length) {
+    const book = cachedBooks[0];
+    await page.route("**/writing/covers/**", (route) => route.abort());
+    await page.goto(new URL("/writing", base).href, {
+      waitUntil: "networkidle",
+    });
+    const card = page.locator(".writing-card").filter({
+      has: page.getByRole("heading", { name: book.title, exact: true }),
+    });
+    await card.scrollIntoViewIfNeeded();
+    await card.getByText("Cover image unavailable.", { exact: true }).waitFor();
+    const coverAxe = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    report.axe.push({
+      route: "cached and remote cover failure fallback",
+      theme: "light",
+      violations: coverAxe.violations.map(({ id, impact }) => ({ id, impact })),
+    });
+    report.imageFallbacks.push(
+      "cached cover failure retries the original URL, then a labeled text fallback",
+    );
+    await page.unroute("**/writing/covers/**");
+  }
   await page.goto(base, { waitUntil: "networkidle" });
   await page.keyboard.press("Tab");
   assert.equal(
