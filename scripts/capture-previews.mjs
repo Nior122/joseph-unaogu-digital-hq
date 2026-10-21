@@ -152,6 +152,33 @@ async function saveAsset(kind, id, sourceUrl, bytes, format, previous) {
   };
 }
 
+// A WebGL scene can still be booting after network-idle. Do not photograph its loader.
+function homepageLoadingComplete() {
+  return !Array.from(
+    document.querySelectorAll(
+      '[id*="loader" i], [id*="loading" i], [class*="preloader" i], [class*="loading-screen" i]',
+    ),
+  ).some((element) => {
+    const style = getComputedStyle(element);
+    if (
+      style.display === "none" ||
+      style.visibility === "hidden" ||
+      Number(style.opacity) < 0.05
+    )
+      return false;
+    const rect = element.getBoundingClientRect();
+    const width = Math.max(
+      0,
+      Math.min(rect.right, innerWidth) - Math.max(rect.left, 0),
+    );
+    const height = Math.max(
+      0,
+      Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0),
+    );
+    return width * height > innerWidth * innerHeight * 0.45;
+  });
+}
+
 async function captureHomepage(browser, project, previous) {
   assertPublicUrl(project.liveUrl);
   const context = await browser.newContext({
@@ -160,7 +187,7 @@ async function captureHomepage(browser, project, previous) {
     locale: "en-GB",
     timezoneId: "UTC",
     colorScheme: "light",
-    reducedMotion: "reduce",
+    reducedMotion: "no-preference",
     serviceWorkers: "block",
     acceptDownloads: false,
   });
@@ -173,6 +200,15 @@ async function captureHomepage(browser, project, previous) {
     await page
       .waitForLoadState("networkidle", { timeout: 10_000 })
       .catch(() => {});
+    try {
+      await page.waitForFunction(homepageLoadingComplete, undefined, {
+        timeout: 30_000,
+      });
+    } catch {
+      throw new Error(
+        "Homepage loading screen did not clear; previous usable image kept.",
+      );
+    }
     await page.evaluate(() =>
       Promise.race([
         document.fonts.ready,
@@ -194,12 +230,14 @@ async function captureHomepage(browser, project, previous) {
         .count(),
       hasCanvas: (await page.locator("canvas:visible").count()) > 0,
     };
+    if (!(await page.evaluate(homepageLoadingComplete)))
+      throw new Error("Homepage is still covered by a loading screen.");
     const failure = pageFailure(state);
     if (failure) throw new Error(failure);
     const png = await page.screenshot({
       type: "png",
       fullPage: false,
-      animations: "disabled",
+      animations: "allow",
       timeout: 15_000,
     });
     const stats = await sharp(png).resize(64, 40).removeAlpha().stats();
@@ -224,7 +262,7 @@ async function cacheCover(book, previous) {
   assertPublicUrl(book.coverImage);
   const response = await fetch(book.coverImage, {
     signal: AbortSignal.timeout(30_000),
-    headers: { Accept: "image/*" },
+    headers: { Accept: "image/*", "User-Agent": "ChenarPreviewUpdater/1.0" },
   });
   if (!response.ok)
     throw new Error(`Original cover returned HTTP ${response.status}.`);
@@ -345,7 +383,9 @@ export async function refreshPreviews(args = process.argv.slice(2)) {
             error instanceof Error
               ? error.message.slice(0, 500)
               : "Capture failed.";
-          console.warn(`kept previous: ${project.slug}: ${reason}`);
+          console.warn(
+            `::warning title=Homepage capture ${project.slug}::${reason.replaceAll("%", "%25").replaceAll("\n", "%0A").replaceAll("\r", "%0D")}`,
+          );
           return {
             kind: "project",
             id: project.slug,
@@ -382,7 +422,9 @@ export async function refreshPreviews(args = process.argv.slice(2)) {
                 error instanceof Error
                   ? error.message.slice(0, 500)
                   : "Cover cache failed.";
-              console.warn(`kept previous: cover ${book.id}: ${reason}`);
+              console.warn(
+                `::warning title=Original cover ${book.id}::${reason.replaceAll("%", "%25").replaceAll("\n", "%0A").replaceAll("\r", "%0D")}`,
+              );
               return {
                 kind: "writing",
                 id: book.id,
@@ -398,6 +440,12 @@ export async function refreshPreviews(args = process.argv.slice(2)) {
       manifest[key] = Object.fromEntries(
         Object.entries(manifest[key]).sort(([a], [b]) => a.localeCompare(b)),
       );
+    manifest.lastRefresh = {
+      checkedAt: new Date().toISOString(),
+      successful: report.results.filter((result) => result.status !== "failed")
+        .length,
+      failures: report.results.filter((result) => result.status === "failed"),
+    };
     await atomicWrite(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
     await pruneGeneratedFiles(manifest);
   } finally {

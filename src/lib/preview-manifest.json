@@ -109,15 +109,6 @@
       "bytes": 61050,
       "capturedAt": "2026-10-21T16:05:42.627Z"
     },
-    "solar-system": {
-      "src": "/projects/previews/solar-system-ed8b1b580696.webp",
-      "sourceUrl": "https://solar-system-explorer-silk.vercel.app/",
-      "sha256": "ed8b1b580696c9b72b988bff39029012b1145baceb1edf7e2364645834481d9a",
-      "width": 1280,
-      "height": 800,
-      "bytes": 5414,
-      "capturedAt": "2026-10-21T16:05:13.045Z"
-    },
     "supportiq": {
       "src": "/projects/previews/supportiq-ff117418a1ee.webp",
       "sourceUrl": "https://supportiq-two.vercel.app/",
