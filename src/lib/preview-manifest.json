@@ -1,5 +1,151 @@
 {
   "version": 1,
-  "projects": {},
-  "writing": {}
+  "projects": {
+    "aduke-admin": {
+      "src": "/projects/previews/aduke-admin-21d640f2b31e.webp",
+      "sourceUrl": "https://admin-dashboard-ashy-tau-44.vercel.app/",
+      "sha256": "21d640f2b31e5e4a82dab9cc33e0e7e183989c94683d9a3be3f014034788fca8",
+      "width": 1280,
+      "height": 800,
+      "bytes": 50282,
+      "capturedAt": "2026-10-21T16:06:01.319Z"
+    },
+    "adura-glow": {
+      "src": "/projects/previews/adura-glow-737d7e0aa956.webp",
+      "sourceUrl": "https://adura-glow-oil-store.vercel.app/",
+      "sha256": "737d7e0aa956fc4097132baea5d192c9a4c8a8fdca8960a9adb0ba8d1ab53a92",
+      "width": 1280,
+      "height": 800,
+      "bytes": 25746,
+      "capturedAt": "2026-10-21T16:05:48.243Z"
+    },
+    "deep-ocean": {
+      "src": "/projects/previews/deep-ocean-cefd86b3c10a.webp",
+      "sourceUrl": "https://deep-ocean-observatory.vercel.app/",
+      "sha256": "cefd86b3c10aabcba16953e581dda5991f948464449983b24e2019d18c444546",
+      "width": 1280,
+      "height": 800,
+      "bytes": 34740,
+      "capturedAt": "2026-10-21T16:05:24.390Z"
+    },
+    "drape": {
+      "src": "/projects/previews/drape-494266a5e489.webp",
+      "sourceUrl": "https://drape-fzs.pages.dev/",
+      "sha256": "494266a5e489118dd4ce52aaf4885108e9feae07bc27cd93fe9dccc170516d5b",
+      "width": 1280,
+      "height": 800,
+      "bytes": 34148,
+      "capturedAt": "2026-10-21T16:05:28.293Z"
+    },
+    "eduflow": {
+      "src": "/projects/previews/eduflow-2973de620b75.webp",
+      "sourceUrl": "https://eduflow-five-psi.vercel.app/",
+      "sha256": "2973de620b7552df14d221f5afe07c0a454f22801da38436de69399f006dd260",
+      "width": 1280,
+      "height": 800,
+      "bytes": 65398,
+      "capturedAt": "2026-10-21T16:05:33.731Z"
+    },
+    "ember-spice": {
+      "src": "/projects/previews/ember-spice-9d52fa695c9e.webp",
+      "sourceUrl": "https://ember-and-spice-kohl.vercel.app/",
+      "sha256": "9d52fa695c9e2ada1fdd57f54e441ebf7b919212584a4632c78d9f5ffeae7a10",
+      "width": 1280,
+      "height": 800,
+      "bytes": 80610,
+      "capturedAt": "2026-10-21T16:05:47.869Z"
+    },
+    "flowsource": {
+      "src": "/projects/previews/flowsource-4f90f1b076d0.webp",
+      "sourceUrl": "https://flowsource.vercel.app/",
+      "sha256": "4f90f1b076d0182d181d5bd8afc1e9b2223d0d8bbe7847789d7a5c7a75dd6455",
+      "width": 1280,
+      "height": 800,
+      "bytes": 40266,
+      "capturedAt": "2026-10-21T16:05:55.809Z"
+    },
+    "hireflows": {
+      "src": "/projects/previews/hireflows-7f740ec8b7ca.webp",
+      "sourceUrl": "https://hireflows.vercel.app/",
+      "sha256": "7f740ec8b7ca95290b360acfbbd641040fdd4635ac4983f9af510512e9bdcfb9",
+      "width": 1280,
+      "height": 800,
+      "bytes": 36324,
+      "capturedAt": "2026-10-21T16:05:38.936Z"
+    },
+    "human-brain": {
+      "src": "/projects/previews/human-brain-6509c2079cbc.webp",
+      "sourceUrl": "https://3d-human-brain-explorer.vercel.app/",
+      "sha256": "6509c2079cbc1e32a1252f39301a6f4dbf0660731c119564766ae8b32b1eedd8",
+      "width": 1280,
+      "height": 800,
+      "bytes": 29440,
+      "capturedAt": "2026-10-21T16:05:22.423Z"
+    },
+    "kirvon": {
+      "src": "/projects/previews/kirvon-d6208ce7bf8f.webp",
+      "sourceUrl": "https://kirvonstore.vercel.app/",
+      "sha256": "d6208ce7bf8f68f227dd97d296553080a131e6efaf39bfc425f24241ce9d53c2",
+      "width": 1280,
+      "height": 800,
+      "bytes": 59946,
+      "capturedAt": "2026-10-21T16:05:49.642Z"
+    },
+    "master-prompter": {
+      "src": "/projects/previews/master-prompter-21a2f7f6856a.webp",
+      "sourceUrl": "https://masterprompter.vercel.app/",
+      "sha256": "21a2f7f6856a601acc6d1844f6287bdb755781bce0e7e956b372d74aa1e45774",
+      "width": 1280,
+      "height": 800,
+      "bytes": 36678,
+      "capturedAt": "2026-10-21T16:05:53.700Z"
+    },
+    "northgate": {
+      "src": "/projects/previews/northgate-285ae3640dc8.webp",
+      "sourceUrl": "https://northgate-properties.vercel.app/",
+      "sha256": "285ae3640dc87d4fd2420c0c87d392a38e8bf2eb8e6145c06dbe3c3753f6305a",
+      "width": 1280,
+      "height": 800,
+      "bytes": 61050,
+      "capturedAt": "2026-10-21T16:05:42.627Z"
+    },
+    "solar-system": {
+      "src": "/projects/previews/solar-system-ed8b1b580696.webp",
+      "sourceUrl": "https://solar-system-explorer-silk.vercel.app/",
+      "sha256": "ed8b1b580696c9b72b988bff39029012b1145baceb1edf7e2364645834481d9a",
+      "width": 1280,
+      "height": 800,
+      "bytes": 5414,
+      "capturedAt": "2026-10-21T16:05:13.045Z"
+    },
+    "supportiq": {
+      "src": "/projects/previews/supportiq-ff117418a1ee.webp",
+      "sourceUrl": "https://supportiq-two.vercel.app/",
+      "sha256": "ff117418a1eeeb5c7a5c2e1ff247aef8f54744dbd57993269e94f6d00bf5f4c5",
+      "width": 1280,
+      "height": 800,
+      "bytes": 31708,
+      "capturedAt": "2026-10-21T16:05:57.803Z"
+    },
+    "velvet-fade": {
+      "src": "/projects/previews/velvet-fade-4d7a7e61c9ee.webp",
+      "sourceUrl": "https://velvet-and-fade-salon.vercel.app/",
+      "sha256": "4d7a7e61c9ee630673c6bcefb8b9f8f4659cf6c57a6acf3b250796e00db350ef",
+      "width": 1280,
+      "height": 800,
+      "bytes": 54590,
+      "capturedAt": "2026-10-21T16:05:41.336Z"
+    }
+  },
+  "writing": {
+    "copywriting-portfolio": {
+      "src": "/writing/covers/copywriting-portfolio-b73af1b0a707.jpg",
+      "sourceUrl": "https://cdn.phototourl.com/member/2026-07-20-bb53c054-fd9b-4237-9280-0062fe345c87.jpg",
+      "sha256": "b73af1b0a70742f14bf26a515523c366b5fe7b387fc6852c7e5fbaedb4d91908",
+      "width": 768,
+      "height": 1376,
+      "bytes": 707212,
+      "capturedAt": "2026-10-21T16:06:01.576Z"
+    }
+  }
 }
