@@ -42,7 +42,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <ProjectPreview project={project} large priority />
           {project.image.src && (
             <figcaption className="small-text text-muted mt-3">
-              Existing screenshot of {project.name}.
+              Homepage preview of {project.name}.
             </figcaption>
           )}
         </figure>

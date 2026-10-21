@@ -36,10 +36,11 @@ export default function AdminPage() {
             live URL, and local screenshot.
           </p>
           <p>
-            Only existing files in <code>public/projects/</code> are used.
-            Projects without a local screenshot show an honest text fallback.
-            There are no request-time screenshot services or screenshot warmup
-            hooks.
+            A scheduled capture job saves homepage previews in{" "}
+            <code>public/projects/previews/</code>. The six original screenshots
+            remain available as fallbacks. A failed capture keeps the last
+            usable image; previews are not fetched from a screenshot service
+            during a visit.
           </p>
           <ul className="bullet-list">
             {projects.map((project) => (
@@ -55,8 +56,9 @@ export default function AdminPage() {
           <p>
             The {writing.length} writing entries retain their original titles,
             subtitles, author, genres, categories, full summaries, themes,
-            writing statuses, optional excerpts, and original cover URLs. A
-            remote cover that fails to load gets a text fallback.
+            writing statuses, optional excerpts, and original cover URLs. Cached
+            copies of the same cover files are used first, with the original URL
+            and a text fallback if needed.
           </p>
           <p>
             No CMS, authentication, or email delivery service is connected.

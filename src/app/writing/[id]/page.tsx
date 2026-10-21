@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BookCover } from "@/components/writing/book-cover";
 import { Button } from "@/components/ui/button";
-import { writing } from "@/lib/content";
+import { writing, writingCoverSource } from "@/lib/content";
 
 type Props = { params: Promise<{ id: string }> };
 export function generateStaticParams() {
@@ -42,7 +42,12 @@ export default async function WritingDetailPage({ params }: Props) {
         </p>
       </header>
       <div className="book-detail">
-        <BookCover title={book.title} src={book.coverImage} eager />
+        <BookCover
+          title={book.title}
+          src={book.coverImage}
+          localSrc={writingCoverSource(book)}
+          eager
+        />
         <div className="stack">
           <section className="stack" aria-labelledby="book-summary">
             <h2 id="book-summary">Summary</h2>

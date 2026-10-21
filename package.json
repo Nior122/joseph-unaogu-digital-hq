@@ -13,7 +13,8 @@
     "test:browser": "node scripts/check-browser.mjs",
     "test:lighthouse": "node scripts/check-lighthouse.mjs",
     "test": "npm run test:content && npm run test:unit",
-    "format": "prettier --write src scripts tests next.config.mjs tailwind.config.ts postcss.config.mjs"
+    "format": "prettier --write src scripts tests next.config.mjs tailwind.config.ts postcss.config.mjs",
+    "previews:refresh": "node scripts/capture-previews.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

@@ -554,7 +554,7 @@ try {
     "Accessibility violations must be fixed; see test-results/browser-report.json",
   );
   console.log(
-    `Browser checks passed: ${report.routes.length} content routes, ${report.internalLinks.length} internal links/anchors, 17 redirects, 6 local images, ${report.axe.length} axe scans, keyboard/form/theme/print checks and ${report.responsive.length} reflow checks.`,
+    `Browser checks passed: ${report.routes.length} content routes, ${report.internalLinks.length} internal links/anchors, 17 redirects, ${report.images.length} local project images, ${report.axe.length} axe scans, keyboard/form/theme/print checks and ${report.responsive.length} reflow checks.`,
   );
 } finally {
   await browser.close();

@@ -1,3 +1,5 @@
+import previewManifest from "./preview-manifest.json";
+
 // The single runtime source for site facts, projects, services and writing.
 // Unconfirmed business facts are registered at the end, never presented as promises.
 
@@ -479,7 +481,7 @@ export type Project = {
   stack?: string[];
   liveUrl?: string;
   /** An empty src means no local screenshot exists. Render the labeled fallback. */
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; fallbackSrc?: string };
   // Original case-study notes remain available from the same record.
   id: string;
   url: string;
@@ -1162,6 +1164,34 @@ export const projects: Project[] = [
   },
 ];
 
+type CapturedPreview = {
+  src: string;
+  sourceUrl: string;
+  sha256: string;
+  capturedAt: string;
+};
+const homepageCaptures = previewManifest.projects as Record<
+  string,
+  CapturedPreview
+>;
+// Generated assets only override images when they belong to this exact public demo URL.
+// Keep the six original screenshots as fallbacks; never rewrite their files.
+for (const project of projects) {
+  const capture = homepageCaptures[project.slug];
+  if (
+    capture?.sourceUrl === project.liveUrl &&
+    new RegExp(`^/projects/previews/${project.slug}-[a-f0-9]{12}\\.webp$`).test(
+      capture.src,
+    )
+  ) {
+    project.image = {
+      src: capture.src,
+      alt: `Homepage screenshot of ${project.name}`,
+      ...(project.image.src ? { fallbackSrc: project.image.src } : {}),
+    };
+  }
+}
+
 export const projectFilters = [
   { id: "all", label: "All" },
   { id: "websites", label: "Websites" },
@@ -1784,6 +1814,21 @@ export const writing: Writing[] = [
       "https://cdn.phototourl.com/member/2026-07-20-bb53c054-fd9b-4237-9280-0062fe345c87.jpg",
   },
 ];
+
+/** A cached copy of the same original cover; the writing record itself is never changed. */
+export function writingCoverSource(
+  book: Pick<Writing, "id" | "coverImage">,
+): string | undefined {
+  const capture = (previewManifest.writing as Record<string, CapturedPreview>)[
+    book.id
+  ];
+  return capture?.sourceUrl === book.coverImage &&
+    new RegExp(
+      `^/writing/covers/${book.id}-[a-f0-9]{12}\\.(jpg|png|webp|avif|gif)$`,
+    ).test(capture.src)
+    ? capture.src
+    : undefined;
+}
 
 export const nowFocus = [
   "Building small AI-powered web projects and shipping them publicly.",

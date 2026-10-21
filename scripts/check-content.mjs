@@ -3,19 +3,10 @@ import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import ts from "typescript";
+import { loadContent } from "./load-content.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const source = readFileSync(path.join(root, "src/lib/content.ts"), "utf8");
-const code = ts.transpileModule(source, {
-  compilerOptions: {
-    module: ts.ModuleKind.CommonJS,
-    target: ts.ScriptTarget.ES2020,
-  },
-}).outputText;
-const contentModule = { exports: {} };
-new Function("module", "exports", code)(contentModule, contentModule.exports);
-export const content = contentModule.exports;
+export const content = loadContent();
 const {
   projects,
   writing,
@@ -63,9 +54,14 @@ assert.equal(
 for (const social of content.site.socials)
   assert.equal(new URL(social.href).protocol, "https:");
 assert.equal(
-  projects.filter((project) => project.image.src).length,
+  projects.filter(
+    (project) =>
+      project.image.fallbackSrc ||
+      (project.image.src &&
+        !project.image.src.startsWith("/projects/previews/")),
+  ).length,
   6,
-  "Use only the six existing local screenshots.",
+  "Keep the six original screenshots even after live captures are available.",
 );
 assert.equal(
   projects.filter((project) => projectMatchesFilter(project, "experiments"))
@@ -104,6 +100,57 @@ assert.equal(
   "b07002c78905de869146aad6732b1a3c895441c3c4969aa081071a022c6247af",
   "Original writing content and covers must not change.",
 );
+const previewManifest = JSON.parse(
+  readFileSync(path.join(root, "src/lib/preview-manifest.json"), "utf8"),
+);
+for (const [kind, records] of Object.entries({
+  projects: previewManifest.projects,
+  writing: previewManifest.writing,
+})) {
+  for (const [id, asset] of Object.entries(records)) {
+    const source =
+      kind === "projects"
+        ? projects.find((project) => project.slug === id)?.liveUrl
+        : writing.find((book) => book.id === id)?.coverImage;
+    assert.equal(
+      asset.sourceUrl,
+      source,
+      `${id}: capture must match the original source`,
+    );
+    const prefix = kind === "projects" ? "projects/previews" : "writing/covers";
+    assert.match(
+      asset.src,
+      new RegExp(`^/${prefix}/${id}-[a-f0-9]{12}\\.(?:webp|jpg|png|avif|gif)$`),
+    );
+    const bytes = readFileSync(path.join(root, "public", asset.src));
+    assert.equal(
+      createHash("sha256").update(bytes).digest("hex"),
+      asset.sha256,
+      `${id}: asset integrity`,
+    );
+    assert.ok(
+      asset.src.includes(asset.sha256.slice(0, 12)),
+      `${id}: cache-busting filename`,
+    );
+    assert.equal(bytes.byteLength, asset.bytes);
+    if (kind === "projects") {
+      assert.equal(asset.width, 1280);
+      assert.equal(asset.height, 800);
+      assert.ok(
+        bytes.byteLength <= 150000,
+        `${id}: optimized homepage preview`,
+      );
+      assert.equal(
+        projects.find((project) => project.slug === id).image.src,
+        asset.src,
+      );
+    } else
+      assert.equal(
+        content.writingCoverSource(writing.find((book) => book.id === id)),
+        asset.src,
+      );
+  }
+}
 console.log(
-  "Content checks passed: 16 projects, 10 unchanged writing pieces, 6 original screenshots, correct filters and services.",
+  `Content checks passed: 16 projects, 10 unchanged writing pieces, ${projects.filter((project) => project.image.src).length} project previews, 6 original screenshots retained, correct filters and services.`,
 );

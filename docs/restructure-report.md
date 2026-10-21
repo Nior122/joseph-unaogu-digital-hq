@@ -6,6 +6,8 @@
 
 Implemented the supplied restructure using the existing images, as directed. The application is available in the Arena live preview. This is a tested production build in the workspace, not a deployment to the public production domain.
 
+> **Follow-up:** Joseph subsequently requested live homepage captures and scheduled image updates. The initial six-image policy and unverified-demo status below describe the original restructure, not the newer image refresh. See [preview updates](preview-updates.md) for the current implementation.
+
 ## Changes by route
 
 | Route                                                      | What changed                                                                                                                                                                                                                        |

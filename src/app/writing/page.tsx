@@ -3,7 +3,13 @@ import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { BookCover } from "@/components/writing/book-cover";
 import { Button } from "@/components/ui/button";
-import { writing, ebookProcess, coverStyles, services } from "@/lib/content";
+import {
+  writing,
+  writingCoverSource,
+  ebookProcess,
+  coverStyles,
+  services,
+} from "@/lib/content";
 
 export default function WritingPage() {
   const copywriting = services.find((service) => service.id === "copywriting")!;
@@ -28,7 +34,11 @@ export default function WritingPage() {
         <div className="writing-grid">
           {writing.map((book) => (
             <article className="surface writing-card" key={book.id}>
-              <BookCover src={book.coverImage} title={book.title} />
+              <BookCover
+                src={book.coverImage}
+                localSrc={writingCoverSource(book)}
+                title={book.title}
+              />
               <div className="book-labels">
                 <span>
                   {book.genre === "fiction" ? "Fiction" : "Nonfiction"}

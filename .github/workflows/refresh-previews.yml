@@ -1,0 +1,80 @@
+name: Refresh homepage previews
+
+on:
+  # Once a week; GitHub activates scheduled events only after this file is on the default branch.
+  schedule:
+    - cron: "23 4 * * 1"
+  workflow_dispatch:
+  # Also bootstrap captures immediately on the current working branch.
+  push:
+    branches:
+      - arena/2d034660-joseph-unaogu-digital-hq
+    paths:
+      - .github/workflows/refresh-previews.yml
+      - scripts/capture-previews.mjs
+      - scripts/load-content.mjs
+      - scripts/browser-utils.mjs
+      - src/lib/content.ts
+
+permissions:
+  contents: write
+
+concurrency:
+  group: homepage-previews-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    name: Capture public homepages and original covers
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the triggering branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.22.3"
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Capture and optimize previews
+        run: npm run previews:refresh
+        env:
+          # GitHub's Linux runner includes Chrome and its system dependencies.
+          CHROME_PATH: /usr/bin/google-chrome
+
+      - name: Check content and asset integrity
+        run: npm test
+
+      - name: Upload capture results even after a failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-preview-report
+          path: test-results/previews/capture-report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit only refreshed assets to the triggering branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add src/lib/preview-manifest.json public/projects/previews public/writing/covers
+          if git diff --cached --quiet; then
+            echo "Existing captures are current; no asset commit needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh project homepage previews and original covers"
+          gh auth setup-git
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
