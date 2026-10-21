@@ -66,6 +66,16 @@ All requested score thresholds still pass. These lab measurements include the re
 
 The initial captures have already run on the Arena branch. **The weekly cron is configured but does not become active until this workflow is merged into the default branch.** That merge and a public production deployment have not been performed. The target branch must allow the workflow's asset commit; branch protection is never bypassed.
 
+## Check of the exact old Writing page
+
+Joseph supplied `https://josephportifolio.vercel.app/writing` as the source. The browser recovery run at [39663790115](https://github.com/Nior122/joseph-unaogu-digital-hq/actions/runs/39663790115) loaded that page successfully and matched all ten book titles, slugs, and image URLs against the unchanged writing records.
+
+Only **Copywriting Portfolio** decoded successfully (768×1376). Its bytes match the original cover already stored locally; this check did not recover any additional cover files. The other nine images finished with `naturalWidth: 0` in Chrome on the old page itself. Their earlier direct-download attempts returned HTTP 403. These are unavailable source images, not missing book records or an incorrect repository name.
+
+The per-book source-page results are recorded in `docs/writing-cover-recovery.json`. The workflow also keeps a screenshot of the old page as a downloadable run artifact. No authentication bypass, guessed substitute URLs, redrawn covers, or generated replacements are used.
+
+To restore the remaining nine exact covers, obtain the original files or accessible direct-image URLs. If they still appear in Joseph's own browser, saving those images and uploading the files (or a ZIP) is sufficient. `node scripts/recover-writing-covers.mjs` can repeat the source-page recovery on a network that can reach the original site and image host. The existing working cover and all writing text remain unchanged.
+
 ## Run it yourself
 
 Use an environment that can reach the public project sites and original cover CDN. This sandbox's outbound allowlist does not permit those hosts; GitHub's hosted runner is used for the actual refresh.
