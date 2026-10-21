@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "eslint . --ext .js,.mjs,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test:content": "node scripts/check-content.mjs"
+    "test:content": "node scripts/check-content.mjs",
+    "test:unit": "tsx --test tests/*.test.ts",
+    "test:browser": "node scripts/check-browser.mjs",
+    "test:lighthouse": "node scripts/check-lighthouse.mjs",
+    "test": "npm run test:content && npm run test:unit",
+    "format": "prettier --write src scripts tests next.config.mjs tailwind.config.ts postcss.config.mjs"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
@@ -23,14 +28,21 @@
     "tailwind-merge": "2.5.4"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@sparticuz/chromium": "153.0.0",
     "@types/node": "20.16.13",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "10.4.20",
+    "chrome-launcher": "1.2.2",
     "eslint": "8.57.1",
     "eslint-config-next": "^15.5.28",
+    "lighthouse": "13.5.0",
+    "playwright-core": "1.64.1",
     "postcss": "^8.5.31",
+    "prettier": "3.9.10",
     "tailwindcss": "3.4.14",
+    "tsx": "4.23.15",
     "typescript": "5.6.3"
   },
   "overrides": {

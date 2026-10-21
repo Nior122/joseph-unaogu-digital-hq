@@ -12,7 +12,10 @@ export function ProjectCard({ project }: { project: Project }) {
         <StatusDot status={project.status} />
         <h3>{project.name}</h3>
         <p>{project.oneLiner}</p>
-        <Link className="text-link" href={`/work/${project.slug}`}>View {project.name}<ArrowUpRight size={17} aria-hidden="true" /></Link>
+        <Link className="text-link" href={`/work/${project.slug}`}>
+          View {project.name}
+          <ArrowUpRight size={17} aria-hidden="true" />
+        </Link>
       </div>
     </article>
   );

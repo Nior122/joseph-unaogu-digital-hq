@@ -13,9 +13,18 @@ export function ThemeToggle({ className }: { className?: string }) {
   const label = dark ? "Switch to light theme" : "Switch to dark theme";
   const Icon = dark ? Sun : Moon;
   return (
-    <button type="button" className={cn("theme-toggle", className)} onClick={() => setTheme(dark ? "light" : "dark")} aria-label={label} title={label} disabled={!mounted}>
+    <button
+      type="button"
+      className={cn("theme-toggle", className)}
+      onClick={() => setTheme(dark ? "light" : "dark")}
+      aria-label={label}
+      title={label}
+      disabled={!mounted}
+    >
       <Icon size={18} aria-hidden="true" />
-      <span className="theme-label">{mounted ? (dark ? "Light" : "Dark") : "Theme"}</span>
+      <span className="theme-label">
+        {mounted ? (dark ? "Light" : "Dark") : "Theme"}
+      </span>
     </button>
   );
 }

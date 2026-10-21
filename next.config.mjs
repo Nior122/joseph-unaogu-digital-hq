@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // These metadata lookups are local and fast. Keep tags in <head> for every crawler,
+  // including tools that do not read Next.js streaming metadata from the body.
+  htmlLimitedBots: /.*/,
   allowedDevOrigins: ["*.e2b.app"],
   images: {
     formats: ["image/webp"],
@@ -12,14 +15,23 @@ const nextConfig = {
     return [
       { source: "/projects", destination: "/work", permanent: true },
       // Match page slugs, never the existing /projects/*.png and *.webp assets.
-      { source: "/projects/:slug([a-z0-9-]+)", destination: "/work/:slug", permanent: true },
+      {
+        source: "/projects/:slug([a-z0-9-]+)",
+        destination: "/work/:slug",
+        permanent: true,
+      },
     ];
   },
   async headers() {
-    return [{ source: "/:path*", headers: [
-      { key: "X-Content-Type-Options", value: "nosniff" },
-      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-    ] }];
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+    ];
   },
 };
 export default nextConfig;
