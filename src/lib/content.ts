@@ -1011,7 +1011,7 @@ export function projectCategoryFromParam(param: string | null | undefined): Proj
   if (projectFilters.some((filter) => filter.id === param)) return param as ProjectFilter;
   return aliases[param] ?? "all";
 }
-export function projectMatchesFilter(project: Project, filter: string): boolean {
+export function projectMatchesFilter(project: Pick<Project, "type">, filter: string): boolean {
   const normalized = projectCategoryFromParam(filter);
   if (normalized === "all") return true;
   if (normalized === "websites") return project.type === "website";

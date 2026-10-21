@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/page-header";
 import { SectionHeader } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
-import { ProjectGrid } from "@/components/projects/project-grid";
+import { ProjectCollection } from "@/components/projects/project-collection";
 import { StatusDot } from "@/components/ui/status-dot";
 import { currentlyExploring } from "@/lib/content";
 export const metadata = { title: "The Lab", description: "Ideas Joseph Unaogu is building, testing, breaking, learning from, and improving — AI apps, automation, and digital experiments." };
@@ -13,5 +13,5 @@ export default function LabPage() {
         {currentlyExploring.map((item, i) => (<div key={item.label} className="bg-ink-850/70 p-6"><span className="font-mono text-xs text-paper-dim">{String(i + 1).padStart(2, "0")}</span><p className="mt-3 font-display text-lg font-medium text-paper">{item.label}</p><div className="mt-3"><span className="text-xs text-paper-muted capitalize">{item.status}</span></div></div>))}
       </div>
     </div></section>
-    <section className="relative py-16"><div className="container-px"><SectionHeader eyebrow="Experiments" title="The project shelf" description="Each entry shows what it is, the tech behind it, and what I learned. No fabricated results — just honest notes from the work." /><Reveal><div className="mt-8"><ProjectGrid /></div></Reveal></div></section></>);
+    <section className="relative py-16"><div className="container-px"><SectionHeader eyebrow="Experiments" title="The project shelf" description="Each entry shows what it is, the tech behind it, and what I learned. No fabricated results — just honest notes from the work." /><Reveal><div className="mt-8"><ProjectCollection /></div></Reveal></div></section></>);
 }
