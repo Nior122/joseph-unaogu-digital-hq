@@ -661,3 +661,67 @@ export const faqAssistant = [
   { q: "Can Joseph help with an eBook?", a: "Yes — eBook writing and creation is one of his strongest professional areas, including structure, chapter development, research-based content, and KDP-ready formatting." },
   { q: "Can Joseph build an AI-powered website?", a: "He can build modern, AI-powered web apps at a practical level using Next.js and AI APIs, and is actively developing this capability through real projects." },
 ];
+/* ------------------------------------------------------------------ */
+/* Homepage content — the marketing page structure.                    */
+/* ------------------------------------------------------------------ */
+
+export type HomeService = { id: string; label: string; note: string; icon: string };
+
+export const homeServices: HomeService[] = [
+  { id: "ai-automation", label: "AI Automation & Chatbots", note: "Support bots, assistants, and AI workflows", icon: "bot" },
+  { id: "ai-agents", label: "AI Agent Development", note: "Agents that handle real, repeatable tasks", icon: "sparkles" },
+  { id: "web", label: "Website Development", note: "Fast, responsive, conversion-focused sites", icon: "globe" },
+  { id: "ai-apps", label: "AI App Development", note: "Products with intelligence built in", icon: "smartphone" },
+  { id: "workflow", label: "Workflow Automation", note: "n8n / Make.com systems that save hours", icon: "workflow" },
+  { id: "api", label: "API Integration", note: "Connecting the tools you already use", icon: "plug" },
+  { id: "uiux", label: "UI/UX Design", note: "Interfaces people understand at a glance", icon: "palette" },
+  { id: "content", label: "AI Content Creation", note: "Content systems with a human voice", icon: "pen" },
+  { id: "ebooks", label: "eBook & Digital Product Dev", note: "From first draft to publish-ready", icon: "book" },
+];
+
+export type HomeStat = { value: string; label: string; icon: string };
+
+export const homeStats: HomeStat[] = [
+  { value: "16+", label: "Projects Built", icon: "layers" },
+  { value: "9", label: "Core Services", icon: "sparkles" },
+  { value: "6+", label: "Live Client Sites", icon: "globe" },
+  { value: "24h", label: "Reply Time", icon: "headset" },
+];
+
+export type Highlight = { title: string; detail: string; icon: string };
+
+export const aboutHighlights: Highlight[] = [
+  { title: "Computer Science", detail: "Higher Diploma · 2023", icon: "cap" },
+  { title: "Based in Nigeria", detail: "Working with clients worldwide", icon: "pin" },
+  { title: "1+ Year Experience", detail: "Practical, project-led learning", icon: "star" },
+  { title: "Passionate about", detail: "Technology & innovation", icon: "heart" },
+];
+
+export type Principle = { title: string; body: string; icon: string };
+
+export const principles: Principle[] = [
+  {
+    title: "Clarity before code",
+    body: "I start by understanding the problem in plain language, then explain the plan the same way — no jargon, no guessing.",
+    icon: "compass",
+  },
+  {
+    title: "Built to be used",
+    body: "Pretty is not the goal. Every build is tested on real devices, with real content, so it works the first time you share it.",
+    icon: "check",
+  },
+  {
+    title: "Communication you can follow",
+    body: "Clear updates, honest timelines, and a handover you can actually understand. You always know where your project stands.",
+    icon: "message",
+  },
+];
+
+export type FeaturedWork = { id: string; label: string };
+
+export const featuredWork: FeaturedWork[] = [
+  { id: "adura-glow", label: "Botanical beauty storefront" },
+  { id: "velvet-fade", label: "Premium salon experience" },
+  { id: "kirvon", label: "Gadget e-commerce store" },
+  { id: "human-brain", label: "Interactive 3D learning" },
+];

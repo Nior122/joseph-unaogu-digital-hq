@@ -1,27 +1,65 @@
 import Link from "next/link";
-import { Mail, ArrowUpRight } from "lucide-react";
+import { Linkedin, Mail, MessageCircle, Twitter } from "lucide-react";
 import { site } from "@/lib/content";
-const groups = [
-  { title: "Explore", items: [{ href: "/about", label: "About" }, { href: "/skills", label: "Skills" }, { href: "/projects", label: "Projects" }, { href: "/now", label: "Now" }] },
-  { title: "Work with me", items: [{ href: "/services", label: "Services" }, { href: "/writing", label: "Writing" }, { href: "/contact", label: "Contact" }] },
-];
+
+const socialIcons: Record<string, typeof Mail> = {
+  WhatsApp: MessageCircle,
+  LinkedIn: Linkedin,
+  "X / Twitter": Twitter,
+};
+
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-ink-950">
-      <div className="container-px py-16">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2.5"><span className="grid h-9 w-9 place-items-center rounded-lg bg-neon-cyan/15 text-neon-cyan ring-1 ring-neon-cyan/30"><span className="font-display text-lg font-bold">J</span></span><span className="font-display text-base font-semibold text-paper">Joseph Unaogu</span></div>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-paper-muted">{site.tagline}</p>
-            <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-neon-cyan/90">Build. Explore. Create.</p>
+    <footer className="relative border-t border-white/[0.07] bg-ink-950/80">
+      <div className="container-px py-12">
+        <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:justify-between">
+          <Link href="/" className="flex items-center gap-3" aria-label="Joseph Unaogu — home">
+            <span className="relative grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-300 via-brand-500 to-brand-700 shadow-[0_10px_30px_-10px_rgba(124,77,255,0.9)]">
+              <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/25" />
+              <span className="font-display text-xl font-extrabold leading-none text-white">J</span>
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-lg font-extrabold tracking-tight text-white">Joseph Unaogu</span>
+              <span className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand-200/75">
+                Automate · Build · Grow
+              </span>
+            </span>
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={`mailto:${site.email}`}
+              aria-label="Email Joseph"
+              className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-paper-muted transition-colors hover:border-brand-400/50 hover:text-white"
+            >
+              <Mail size={17} />
+            </a>
+            {site.socials.map((s) => {
+              const Icon = socialIcons[s.label] ?? MessageCircle;
+              return (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-paper-muted transition-colors hover:border-brand-400/50 hover:text-white"
+                >
+                  <Icon size={17} />
+                </a>
+              );
+            })}
           </div>
-          {groups.map((g) => (<div key={g.title}><h3 className="text-xs font-medium uppercase tracking-[0.2em] text-paper-dim">{g.title}</h3><ul className="mt-4 space-y-2.5">{g.items.map((i) => (<li key={i.href}><Link href={i.href} className="text-sm text-paper-muted transition-colors hover:text-neon-cyan">{i.label}</Link></li>))}</ul></div>))}
         </div>
-        <div className="mt-14 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <a href={`mailto:${site.email}`} className="inline-flex min-w-0 items-center gap-2 break-all text-sm text-paper-muted transition-colors hover:text-neon-cyan"><Mail size={15} />{site.email}</a>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">{site.socials.map((s) => (<a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-paper-muted transition-colors hover:text-neon-cyan">{s.label}<ArrowUpRight size={13} /></a>))}</div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/[0.07] pt-6 text-center sm:flex-row sm:text-left">
+          <p className="text-xs text-paper-dim">
+            © {new Date().getFullYear()} Joseph Unaogu. All rights reserved.
+          </p>
+          <p className="text-xs text-paper-dim">
+            Built with care in Nigeria · <span className="text-brand-200/80">Open for new projects</span>
+          </p>
         </div>
-        <p className="mt-8 text-xs text-paper-dim">© {new Date().getFullYear()} Joseph Unaogu. A digital builder in motion — always learning, always building.</p>
       </div>
     </footer>
   );
