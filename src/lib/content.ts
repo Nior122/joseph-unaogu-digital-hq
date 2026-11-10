@@ -360,7 +360,7 @@ export const projects: Project[] = [
     screenshotVersion: 1,
   },
   {
-    id: "scrolltek", name: "ScrollTek", url: "https://newsz-delta.vercel.app/",
+    id: "scrolltek", name: "ScrollTek", url: "https://www.scrolltek.name.ng",
     description: "A digital publication platform covering technology, digital culture, AI tools, phone tips, lifestyle, productivity, and trending topics — a content-driven media experience.",
     category: "Media", accent: "#3df0ff", status: "live", availability: "Available for Customization",
     featured: false, tech: ["Next.js", "Tailwind", "CMS-style"], role: "Builder & Editor",
