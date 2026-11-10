@@ -30,13 +30,13 @@ export function AboutSection() {
               <div className="relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-ink-850 p-1.5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.95)]">
                 <Image
                   src="/about-portrait.webp"
-                  alt="Joseph Unaogu working at his laptop"
-                  width={796}
-                  height={598}
+                  alt="Joseph Unaogu in a navy blazer, photographed in his workspace"
+                  width={768}
+                  height={900}
                   sizes="(max-width: 1024px) 80vw, 360px"
                   className="h-auto w-full rounded-[1.4rem] object-cover"
                 />
-                <div className="pointer-events-none absolute inset-1.5 rounded-[1.4rem] bg-gradient-to-t from-brand-900/50 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-1.5 rounded-[1.4rem] bg-gradient-to-t from-ink-950/45 via-transparent to-transparent" />
               </div>
             </div>
           </Reveal>
