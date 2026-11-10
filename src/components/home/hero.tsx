@@ -87,8 +87,8 @@ export function Hero() {
                   <Image
                     src="/hero-portrait.webp"
                     alt="Joseph Unaogu, AI and digital solutions partner"
-                    width={940}
-                    height={744}
+                    width={1024}
+                    height={900}
                     priority
                     sizes="(max-width: 1024px) 90vw, 500px"
                     className="h-auto w-full object-cover"
